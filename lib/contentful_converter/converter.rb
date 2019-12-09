@@ -2,7 +2,6 @@
 
 require 'nokogiri'
 require 'contentful_converter/tree_cloner'
-require 'pry'
 
 module ContentfulConverter
   class Converter
