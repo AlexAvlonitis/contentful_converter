@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-# Clones nokogiri fragment tree to our contentful specific tree structure
+# Clones nokogiri fragment tree in a contentful specific tree structure
 # Keeps track of objects and their children with a hash_map,
 # value[0] index is always the corresponding rich_text node
 # value[1..] indexes are the children ids of the key:node
 # {
-#   nokogiri_obj_id: [rich_text_node, noko_child_obj_id, noko_child_obj_id],
-#   nokogiri_obj_id: [rich_text_node]
+#   nokogiri_obj_id: [rich_text_node, noko_child_obj_id2, noko_child_obj_id3],
+#   nokogiri_obj_id2: [rich_text_node]
+#   nokogiri_obj_id3: [rich_text_node]
 # }
 # TODO: Refactor to something easier to follow
 
