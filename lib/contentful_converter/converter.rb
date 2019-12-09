@@ -24,7 +24,7 @@ module ContentfulConverter
       end
 
       def convert_to_rich_text(nokogiri_fragment)
-        TreeCloner.clone_to_rich_text(nokogiri_fragment)
+        TreeCloner.nokogiri_to_rich_text(nokogiri_fragment)
       end
     end
   end

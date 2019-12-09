@@ -66,14 +66,23 @@ describe ContentfulConverter::NodeBuilder do
         end
       end
 
-      context 'when we pass in paragraph text nokogiri node' do
+      context 'when we pass in paragraph nokogiri node' do
         it 'instantiates a Paragraph rich_text node' do
-          ['p', 'div'].each do |v|
+          ['p', 'div', 'br'].each do |v|
             allow(nokogiri_node).to receive(:name) { v }
 
             expect(described_class.build(nokogiri_node))
               .to be_an_instance_of(ContentfulConverter::Nodes::Paragraph)
           end
+        end
+      end
+
+      context 'when we pass in hyperlink nokogiri node' do
+        it 'instantiates an Hyperlink rich_text node' do
+          allow(nokogiri_node).to receive(:name) { 'a' }
+
+          expect(described_class.build(nokogiri_node))
+            .to be_an_instance_of(ContentfulConverter::Nodes::Hyperlink)
         end
       end
     end

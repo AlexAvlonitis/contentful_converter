@@ -26,8 +26,7 @@ describe ContentfulConverter::Converter do
                       marks: [],
                       value: 'paragraph text',
                       nodeType: 'text',
-                      data: {},
-                      content: []
+                      data: {}
                     }
                   ]
                 },
@@ -39,8 +38,7 @@ describe ContentfulConverter::Converter do
                       marks: [],
                       value: 'hello world',
                       nodeType: 'text',
-                      data: {},
-                      content: []
+                      data: {}
                     }
                   ]
                 }
@@ -55,10 +53,10 @@ describe ContentfulConverter::Converter do
       end
 
       context 'When we have a deeply nested html' do
-        let(:html2) do
+        let(:html) do
           '<html><body><div><h1>hello world</h1><div><p>paragraph text<p></div></div></body></html>'
         end
-        let(:expected_hash2) do
+        let(:expected_hash) do
           {
             nodeType: 'document',
             data: {},
@@ -75,8 +73,7 @@ describe ContentfulConverter::Converter do
                         marks: [],
                         value: 'hello world',
                         nodeType: 'text',
-                        data: {},
-                        content: []
+                        data: {}
                       }
                     ]
                   },
@@ -92,8 +89,7 @@ describe ContentfulConverter::Converter do
                             marks: [],
                             value: 'paragraph text',
                             nodeType: 'text',
-                            data: {},
-                            content: []
+                            data: {}
                           }
                         ]
                       },
@@ -111,7 +107,39 @@ describe ContentfulConverter::Converter do
         end
 
         it 'convert html to rich text correctly' do
-          expect(described_class.convert(html2)).to eq expected_hash2
+          expect(described_class.convert(html)).to eq expected_hash
+        end
+      end
+
+      context 'When we have a link' do
+        let(:html) do
+          '<html><body><a href="https://google.com">click me</a></body></html>'
+        end
+        let(:expected_hash) do
+          {
+            nodeType: 'document',
+            data: {},
+            content: [
+              {
+                nodeType: 'hyperlink',
+                data: {
+                  uri: 'https://google.com'
+                },
+                content: [
+                  {
+                    marks: [],
+                    value: 'click me',
+                    nodeType: 'text',
+                    data: {}
+                  }
+                ]
+              }
+            ]
+          }
+        end
+
+        it 'convert html to rich text correctly' do
+          expect(described_class.convert(html)).to eq expected_hash
         end
       end
     end

@@ -16,7 +16,7 @@ require 'contentful_converter/node_builder'
 module ContentfulConverter
   class TreeCloner
     class << self
-      def clone_to_rich_text(nokogiri_fragment)
+      def nokogiri_to_rich_text(nokogiri_fragment)
         if nokogiri_fragment.children.empty?
           return NodeBuilder.build(nokogiri_fragment).to_h
         end

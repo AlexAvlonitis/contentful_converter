@@ -4,28 +4,19 @@ require 'contentful_converter/nodes/base'
 
 module ContentfulConverter
   module Nodes
-    class Text < Base
+    class Hyperlink < Base
       def to_h(params = options)
         super
-        params.delete(:content)
-        params
       end
 
       private
 
       def type
-        'text'
+        'hyperlink'
       end
 
       def options
-        {
-          value: value,
-          marks: marks.map { |mark| { type: mark } }
-        }
-      end
-
-      def marks
-        []
+        { data: { uri: nokogiri_node.attributes['href'].value } }
       end
     end
   end

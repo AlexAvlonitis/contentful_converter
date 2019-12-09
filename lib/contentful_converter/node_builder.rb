@@ -7,6 +7,7 @@ require 'contentful_converter/nodes/text'
 require 'contentful_converter/nodes/underline'
 require 'contentful_converter/nodes/italic'
 require 'contentful_converter/nodes/strong'
+require 'contentful_converter/nodes/hyperlink'
 
 module ContentfulConverter
   class NodeBuilder
@@ -24,7 +25,9 @@ module ContentfulConverter
       'b' => Nodes::Strong,
       'strong' => Nodes::Strong,
       'p' => Nodes::Paragraph,
-      'div' => Nodes::Paragraph
+      'div' => Nodes::Paragraph,
+      'br' => Nodes::Paragraph,
+      'a' => Nodes::Hyperlink
     }.freeze
 
     def self.build(nokogiri_node)

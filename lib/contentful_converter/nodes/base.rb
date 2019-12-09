@@ -3,12 +3,11 @@
 module ContentfulConverter
   module Nodes
     class Base
-      attr_reader :nodeType, :data, :content, :nokogiri_node
+      attr_reader :nodeType, :content, :nokogiri_node
 
       def initialize(nokogiri_node = nil)
         @nokogiri_node = nokogiri_node
         @nodeType = type
-        @data = {}
         @content = []
       end
 
@@ -16,11 +15,11 @@ module ContentfulConverter
         @content << node
       end
 
-      def to_h(hash = {})
-        hash[:nodeType] = nodeType
-        hash[:data]     = data
-        hash[:content]  = content.map(&:to_h).compact
-        hash
+      def to_h(params = {})
+        params[:nodeType] = nodeType
+        params[:data]     = params[:data] || {}
+        params[:content]  = content.map(&:to_h).compact
+        params
       end
 
       private
@@ -30,7 +29,7 @@ module ContentfulConverter
       end
 
       def type
-        raise NotImplementedError, 'Needs to be instantiated from a child class'
+        raise NotImplementedError
       end
     end
   end

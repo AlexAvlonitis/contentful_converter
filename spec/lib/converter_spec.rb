@@ -10,15 +10,15 @@ describe ContentfulConverter::Converter do
   before do
     allow(Nokogiri::HTML).to receive(:fragment).with(html) { nokogiri_fragment }
     allow(ContentfulConverter::TreeCloner)
-      .to receive(:clone_to_rich_text)
+      .to receive(:nokogiri_to_rich_text)
       .with(nokogiri_fragment)
       .and_return(Hash)
   end
 
   describe '.convert' do
-    it 'forwards nokogiri fragment to TreeCloner.clone_to_rich_text' do
+    it 'forwards nokogiri fragment to TreeCloner.nokogiri_to_rich_text' do
       expect(ContentfulConverter::TreeCloner)
-        .to receive(:clone_to_rich_text)
+        .to receive(:nokogiri_to_rich_text)
         .with(nokogiri_fragment)
         .and_return(Hash)
 
