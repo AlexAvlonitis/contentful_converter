@@ -27,16 +27,14 @@ module ContentfulConverter
       'div' => Nodes::Paragraph
     }.freeze
 
-    class << self
-      def build(nokogiri_node)
-        rich_text_node = DEFAULT_MAPPINGS[nokogiri_node.name]
+    def self.build(nokogiri_node)
+      rich_text_node = DEFAULT_MAPPINGS[nokogiri_node.name]
 
-        unless rich_text_node
-          raise "'#{nokogiri_node.name}' Node type, does not exist"
-        end
-
-        rich_text_node.new(nokogiri_node)
+      unless rich_text_node
+        raise "'#{nokogiri_node.name}' Node type, does not exist"
       end
+
+      rich_text_node.new(nokogiri_node)
     end
   end
 end
