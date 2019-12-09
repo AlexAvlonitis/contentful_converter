@@ -17,7 +17,9 @@ module ContentfulConverter
   class TreeCloner
     class << self
       def clone_to_rich_text(nokogiri_fragment)
-        return Nodes::Document.new.to_h if nokogiri_fragment.children.empty?
+        if nokogiri_fragment.children.empty?
+          return NodeBuilder.build(nokogiri_fragment).to_h
+        end
 
         pre_order_traversal_map(nokogiri_fragment)
         construct_rich_text_tree
