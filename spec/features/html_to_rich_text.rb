@@ -62,41 +62,51 @@ describe ContentfulConverter::Converter do
           {
             nodeType: 'document',
             data: {},
-            content: [{
-              nodeType: 'paragraph',
-              data: {},
-              content: [{
-                nodeType: 'header-1',
+            content: [
+              {
+                nodeType: 'paragraph',
                 data: {},
-                content: [{
-                  marks: [],
-                  value: 'hello world',
-                  nodeType: 'text',
-                  data: {},
-                  content: []
-                }]
-              },
-                        {
-                          nodeType: 'paragraph',
-                          data: {},
-                          content: [{
-                            nodeType: 'paragraph',
+                content: [
+                  {
+                    nodeType: 'header-1',
+                    data: {},
+                    content: [
+                      {
+                        marks: [],
+                        value: 'hello world',
+                        nodeType: 'text',
+                        data: {},
+                        content: []
+                      }
+                    ]
+                  },
+                  {
+                    nodeType: 'paragraph',
+                    data: {},
+                    content: [
+                      {
+                        nodeType: 'paragraph',
+                        data: {},
+                        content: [
+                          {
+                            marks: [],
+                            value: 'paragraph text',
+                            nodeType: 'text',
                             data: {},
-                            content: [{
-                              marks: [],
-                              value: 'paragraph text',
-                              nodeType: 'text',
-                              data: {},
-                              content: []
-                            }]
-                          },
-                                    {
-                                      nodeType: 'paragraph',
-                                      data: {},
-                                      content: []
-                                    }]
-                        }]
-            }]
+                            content: []
+                          }
+                        ]
+                      },
+                      {
+                        nodeType: 'paragraph',
+                        data: {},
+                        content: []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
           }
         end
 
