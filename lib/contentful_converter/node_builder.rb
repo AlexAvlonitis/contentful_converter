@@ -9,15 +9,15 @@ module ContentfulConverter
   class NodeBuilder
     DEFAULT_MAPPINGS = {
       '#document-fragment' => Nodes::Document,
-      'h1'                 => Nodes::Header,
-      'h2'                 => Nodes::Header,
-      'h3'                 => Nodes::Header,
-      'h4'                 => Nodes::Header,
-      'h5'                 => Nodes::Header,
-      'h6'                 => Nodes::Header,
-      'text'               => Nodes::Text,
-      'p'                  => Nodes::Paragraph,
-      'div'                => Nodes::Paragraph
+      'h1' => Nodes::Header,
+      'h2' => Nodes::Header,
+      'h3' => Nodes::Header,
+      'h4' => Nodes::Header,
+      'h5' => Nodes::Header,
+      'h6' => Nodes::Header,
+      'text' => Nodes::Text,
+      'p' => Nodes::Paragraph,
+      'div' => Nodes::Paragraph
     }.freeze
 
     class << self

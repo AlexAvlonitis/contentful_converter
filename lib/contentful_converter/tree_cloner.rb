@@ -35,17 +35,17 @@ module ContentfulConverter
           node = stack.pop
           @hash_map[node.object_id] = [NodeBuilder.build(node)]
 
-          if node.children.any?
-            node.children.each do |ch_node|
-              stack << ch_node
-              @hash_map[node.object_id] << ch_node.object_id
-            end
+          next unless node.children.any?
+
+          node.children.each do |ch_node|
+            stack << ch_node
+            @hash_map[node.object_id] << ch_node.object_id
           end
         end
       end
 
       def construct_rich_text_tree
-        @hash_map.each do |key, values|
+        @hash_map.each do |_key, values|
           rich_text_node = values.first
           children_obj_ids = values[1..-1]
           next if children_obj_ids.empty?

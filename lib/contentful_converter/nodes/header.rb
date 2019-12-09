@@ -5,7 +5,6 @@ require 'contentful_converter/nodes/base'
 module ContentfulConverter
   module Nodes
     class Header < Base
-
       private
 
       def type

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'contentful_converter/converter'
 
@@ -9,34 +11,34 @@ describe ContentfulConverter::Converter do
       end
       let(:expected_hash) do
         {
-          nodeType: "document",
+          nodeType: 'document',
           data: {},
           content: [
             {
-              nodeType: "paragraph",
+              nodeType: 'paragraph',
               data: {},
               content: [
                 {
-                  nodeType: "paragraph",
+                  nodeType: 'paragraph',
                   data: {},
                   content: [
                     {
                       marks: [],
-                      value: "paragraph text",
-                      nodeType: "text",
+                      value: 'paragraph text',
+                      nodeType: 'text',
                       data: {},
                       content: []
                     }
                   ]
                 },
                 {
-                  nodeType: "header-1",
+                  nodeType: 'header-1',
                   data: {},
                   content: [
                     {
                       marks: [],
-                      value: "hello world",
-                      nodeType: "text",
+                      value: 'hello world',
+                      nodeType: 'text',
                       data: {},
                       content: []
                     }
@@ -58,46 +60,44 @@ describe ContentfulConverter::Converter do
         end
         let(:expected_hash2) do
           {
-            nodeType: "document",
+            nodeType: 'document',
             data: {},
             content: [{
-              nodeType: "paragraph",
+              nodeType: 'paragraph',
               data: {},
               content: [{
-                  nodeType: "header-1",
+                nodeType: 'header-1',
+                data: {},
+                content: [{
+                  marks: [],
+                  value: 'hello world',
+                  nodeType: 'text',
                   data: {},
-                  content: [{
-                    marks: [],
-                    value: "hello world",
-                    nodeType: "text",
-                    data: {},
-                    content: []
+                  content: []
                 }]
               },
-              {
-                  nodeType: "paragraph",
-                  data: {},
-                  content: [{
-                      nodeType: "paragraph",
-                      data: {},
-                      content: [{
-                        marks: [],
-                        value: "paragraph text",
-                        nodeType: "text",
-                        data: {},
-                        content: []
-                    }]
-                  },
-                  {
-                      nodeType: "paragraph",
-                      data: {},
-                      content: []
-                  }
-                ]
-              }
-            ]
-          }]
-        }
+                        {
+                          nodeType: 'paragraph',
+                          data: {},
+                          content: [{
+                            nodeType: 'paragraph',
+                            data: {},
+                            content: [{
+                              marks: [],
+                              value: 'paragraph text',
+                              nodeType: 'text',
+                              data: {},
+                              content: []
+                            }]
+                          },
+                                    {
+                                      nodeType: 'paragraph',
+                                      data: {},
+                                      content: []
+                                    }]
+                        }]
+            }]
+          }
         end
 
         it 'convert html to rich text correctly' do
@@ -113,10 +113,10 @@ describe ContentfulConverter::Converter do
         end
       end
 
-      context "When we our html does not have any elements" do
+      context 'When we our html does not have any elements' do
         let(:expected_hash) do
           {
-            nodeType: "document",
+            nodeType: 'document',
             data: {},
             content: []
           }
