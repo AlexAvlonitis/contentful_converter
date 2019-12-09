@@ -3,7 +3,7 @@
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift lib unless $LOAD_PATH.include?(lib)
 
-require 'contentful-converter/version'
+require 'contentful_converter/version'
 
 Gem::Specification.new do |s|
   s.name        = 'contentful_converter'
@@ -16,5 +16,6 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/AlexAvlonitis/contentful-converter'
   s.license     = 'MIT'
 
+  s.add_dependency 'nokogiri'
   s.add_development_dependency 'rspec'
 end
