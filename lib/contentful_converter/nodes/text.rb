@@ -5,7 +5,7 @@ require 'contentful_converter/nodes/base'
 module ContentfulConverter
   module Nodes
     class Text < Base
-      def to_h(hash = { marks: [], value: value })
+      def to_h(hash = options)
         super
       end
 
@@ -13,6 +13,17 @@ module ContentfulConverter
 
       def type
         'text'
+      end
+
+      def options
+        {
+          value: value,
+          marks: marks.map { |mark| { type: mark } }
+        }
+      end
+
+      def marks
+        []
       end
     end
   end

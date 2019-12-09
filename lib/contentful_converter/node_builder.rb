@@ -4,6 +4,8 @@ require 'contentful_converter/nodes/document'
 require 'contentful_converter/nodes/header'
 require 'contentful_converter/nodes/paragraph'
 require 'contentful_converter/nodes/text'
+require 'contentful_converter/nodes/underline'
+require 'contentful_converter/nodes/italic'
 
 module ContentfulConverter
   class NodeBuilder
@@ -16,6 +18,8 @@ module ContentfulConverter
       'h5' => Nodes::Header,
       'h6' => Nodes::Header,
       'text' => Nodes::Text,
+      'i' => Nodes::Italic,
+      'u' => Nodes::Underline,
       'p' => Nodes::Paragraph,
       'div' => Nodes::Paragraph
     }.freeze
