@@ -6,6 +6,7 @@ require 'contentful_converter/nodes/paragraph'
 require 'contentful_converter/nodes/text'
 require 'contentful_converter/nodes/underline'
 require 'contentful_converter/nodes/italic'
+require 'contentful_converter/nodes/strong'
 
 module ContentfulConverter
   class NodeBuilder
@@ -20,6 +21,8 @@ module ContentfulConverter
       'text' => Nodes::Text,
       'i' => Nodes::Italic,
       'u' => Nodes::Underline,
+      'b' => Nodes::Strong,
+      'strong' => Nodes::Strong,
       'p' => Nodes::Paragraph,
       'div' => Nodes::Paragraph
     }.freeze
