@@ -16,6 +16,6 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/AlexAvlonitis/contentful_converter'
   s.license     = 'MIT'
 
-  s.add_dependency 'nokogiri'
-  s.add_development_dependency 'rspec'
+  s.add_dependency 'nokogiri', '~> 1.6'
+  s.add_development_dependency 'rspec', '~> 3.9'
 end
