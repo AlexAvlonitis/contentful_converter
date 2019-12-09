@@ -33,3 +33,9 @@ ContentfulConverter.convert('<h3>hello world</h3>')
        :content=>[]}]}]}
 
 ```
+
+### Contributions
+* Fork it
+* Create a branch
+* Add your changes and tests
+* Submit a PR

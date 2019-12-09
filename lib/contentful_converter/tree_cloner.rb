@@ -9,7 +9,7 @@
 #   nokogiri_obj_id2: [rich_text_node]
 #   nokogiri_obj_id3: [rich_text_node]
 # }
-# TODO: Refactor to something easier to follow
+# TODO: Refactor
 
 require 'contentful_converter/node_builder'
 
