@@ -30,8 +30,8 @@ module ContentfulConverter
 
       def sanitize(html)
         html = html.dup
-        html.gsub!('div', 'p')
-        html.gsub!('section', 'p')
+        html.gsub!('div>', 'p>')
+        html.gsub!('section>', 'p>')
         html
       end
     end
