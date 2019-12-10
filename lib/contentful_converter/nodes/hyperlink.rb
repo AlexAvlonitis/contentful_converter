@@ -16,7 +16,7 @@ module ContentfulConverter
       end
 
       def options
-        { data: { uri: nokogiri_node.attributes['href'].value } }
+        { data: { uri: nokogiri_node['href'] } }
       end
     end
   end
