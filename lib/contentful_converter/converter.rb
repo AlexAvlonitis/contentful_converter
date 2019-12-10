@@ -9,9 +9,7 @@ module ContentfulConverter
       def convert(html)
         raise_error_unless_string(html)
 
-        nokogiri_fragment = Nokogiri::HTML.fragment(html)
-
-        convert_to_rich_text(nokogiri_fragment)
+        convert_to_rich_text(nokogiri_fragment(html))
       end
 
       private
@@ -24,6 +22,14 @@ module ContentfulConverter
 
       def convert_to_rich_text(nokogiri_fragment)
         TreeCloner.nokogiri_to_rich_text(nokogiri_fragment)
+      end
+
+      def nokogiri_fragment(html)
+        Nokogiri::HTML.fragment(sanitize(html))
+      end
+
+      def sanitize(html)
+        html.gsub('div', 'p')
       end
     end
   end
