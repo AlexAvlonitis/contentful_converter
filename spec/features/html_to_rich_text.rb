@@ -17,30 +17,29 @@ describe ContentfulConverter::Converter do
             {
               nodeType: 'paragraph',
               data: {},
+              content: []
+            },
+            {
+              nodeType: 'paragraph',
+              data: {},
               content: [
                 {
-                  nodeType: 'paragraph',
-                  data: {},
-                  content: [
-                    {
-                      marks: [],
-                      value: 'paragraph text',
-                      nodeType: 'text',
-                      data: {}
-                    }
-                  ]
-                },
+                  marks: [],
+                  value: 'paragraph text',
+                  nodeType: 'text',
+                  data: {}
+                }
+              ]
+            },
+            {
+              nodeType: 'heading-1',
+              data: {},
+              content: [
                 {
-                  nodeType: 'heading-1',
-                  data: {},
-                  content: [
-                    {
-                      marks: [],
-                      value: 'hello world',
-                      nodeType: 'text',
-                      data: {}
-                    }
-                  ]
+                  marks: [],
+                  value: 'hello world',
+                  nodeType: 'text',
+                  data: {}
                 }
               ]
             }
@@ -64,43 +63,41 @@ describe ContentfulConverter::Converter do
               {
                 nodeType: 'paragraph',
                 data: {},
+                content: [],
+              },
+              {
+                nodeType: 'heading-1',
+                data: {},
                 content: [
                   {
-                    nodeType: 'heading-1',
-                    data: {},
-                    content: [
-                      {
-                        marks: [],
-                        value: 'hello world',
-                        nodeType: 'text',
-                        data: {}
-                      }
-                    ]
-                  },
-                  {
-                    nodeType: 'paragraph',
-                    data: {},
-                    content: [
-                      {
-                        nodeType: 'paragraph',
-                        data: {},
-                        content: [
-                          {
-                            marks: [],
-                            value: 'paragraph text',
-                            nodeType: 'text',
-                            data: {}
-                          }
-                        ]
-                      },
-                      {
-                        nodeType: 'paragraph',
-                        data: {},
-                        content: []
-                      }
-                    ]
+                    marks: [],
+                    value: 'hello world',
+                    nodeType: 'text',
+                    data: {}
                   }
                 ]
+              },
+              {
+                nodeType: 'paragraph',
+                data: {},
+                content: [],
+              },
+              {
+                nodeType: 'paragraph',
+                data: {},
+                content: [
+                  {
+                    marks: [],
+                    value: 'paragraph text',
+                    nodeType: 'text',
+                    data: {}
+                  }
+                ]
+              },
+              {
+                nodeType: 'paragraph',
+                data: {},
+                content: []
               }
             ]
           }

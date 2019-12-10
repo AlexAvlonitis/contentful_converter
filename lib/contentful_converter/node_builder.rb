@@ -7,6 +7,7 @@ require 'contentful_converter/nodes/text'
 require 'contentful_converter/nodes/underline'
 require 'contentful_converter/nodes/italic'
 require 'contentful_converter/nodes/strong'
+require 'contentful_converter/nodes/code'
 require 'contentful_converter/nodes/hyperlink'
 
 module ContentfulConverter
@@ -23,6 +24,7 @@ module ContentfulConverter
       'i' => Nodes::Italic,
       'u' => Nodes::Underline,
       'b' => Nodes::Strong,
+      'code' => Nodes::Code,
       'strong' => Nodes::Strong,
       'p' => Nodes::Paragraph,
       'div' => Nodes::Paragraph,

@@ -55,6 +55,15 @@ describe ContentfulConverter::NodeBuilder do
         end
       end
 
+      context 'when we pass in code text nokogiri node' do
+        it 'instantiates a Code rich_text node' do
+          allow(nokogiri_node).to receive(:name) { 'code' }
+
+          expect(described_class.build(nokogiri_node))
+            .to be_an_instance_of(ContentfulConverter::Nodes::Code)
+        end
+      end
+
       context 'when we pass in bold text nokogiri node' do
         it 'instantiates a Strong rich_text node' do
           ['strong', 'b'].each do |v|
