@@ -31,7 +31,7 @@ describe ContentfulConverter::Converter do
                   ]
                 },
                 {
-                  nodeType: 'header-1',
+                  nodeType: 'heading-1',
                   data: {},
                   content: [
                     {
@@ -66,7 +66,7 @@ describe ContentfulConverter::Converter do
                 data: {},
                 content: [
                   {
-                    nodeType: 'header-1',
+                    nodeType: 'heading-1',
                     data: {},
                     content: [
                       {

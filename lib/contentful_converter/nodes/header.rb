@@ -8,7 +8,7 @@ module ContentfulConverter
       private
 
       def type
-        "header-#{header_size}"
+        "heading-#{header_size}"
       end
 
       def header_size

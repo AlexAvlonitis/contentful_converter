@@ -21,12 +21,13 @@ require 'contentful_converter
 ```ruby
 ContentfulConverter.convert('<h3>hello world</h3>')
 
+# OUTPUT
 {
   :nodeType=>"document",
   :data=>{},
   :content=>[
     {
-      :nodeType=>"header-3",
+      :nodeType=>"heading-3",
       :data=>{},
       :content=>[
         {
