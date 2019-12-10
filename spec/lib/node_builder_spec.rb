@@ -77,7 +77,7 @@ describe ContentfulConverter::NodeBuilder do
 
       context 'when we pass in paragraph nokogiri node' do
         it 'instantiates a Paragraph rich_text node' do
-          ['p', 'div', 'br'].each do |v|
+          ['p', 'div', 'br', 'section'].each do |v|
             allow(nokogiri_node).to receive(:name) { v }
 
             expect(described_class.build(nokogiri_node))

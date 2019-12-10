@@ -29,6 +29,7 @@ module ContentfulConverter
       'p' => Nodes::Paragraph,
       'div' => Nodes::Paragraph,
       'br' => Nodes::Paragraph,
+      'section' => Nodes::Paragraph,
       'a' => Nodes::Hyperlink
     }.freeze
 
