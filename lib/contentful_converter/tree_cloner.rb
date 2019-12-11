@@ -28,15 +28,25 @@ module ContentfulConverter
           next unless noko_node.children.any?
 
           noko_node.children.each do |child_node|
-            rich_child_node = NodeBuilder.build(child_node)
+            rich_child_node = NodeBuilder.build(child_node, rich_node)
 
             noko_stack << child_node
             rich_stack << rich_child_node
-            rich_node.add_content(rich_child_node)
+            rich_node.add_content(wrap_in_paragraph(rich_child_node))
           end
         end
 
         rich_root_node
+      end
+
+      def wrap_in_paragraph(node)
+        node.needs_p_wrapping? ? p_wrapper(node) : node
+      end
+
+      def p_wrapper(node)
+        p_node = Nodes::Paragraph.new(nil, node.parent)
+        p_node.add_content(node)
+        p_node
       end
     end
   end

@@ -3,11 +3,12 @@
 module ContentfulConverter
   module Nodes
     class Base
-      attr_reader :nodeType, :content, :nokogiri_node
+      attr_reader :node_type, :content, :nokogiri_node, :parent
 
-      def initialize(nokogiri_node = nil)
+      def initialize(nokogiri_node = nil, parent = nil)
         @nokogiri_node = nokogiri_node
-        @nodeType = type
+        @parent = parent
+        @node_type = type
         @content = []
       end
 
@@ -16,10 +17,22 @@ module ContentfulConverter
       end
 
       def to_h(params = {})
-        params[:nodeType] = nodeType
+        params[:nodeType] = node_type
         params[:data]     = params[:data] || {}
         params[:content]  = content.map(&:to_h).compact
         params
+      end
+
+      def needs_p_wrapping?
+        if parent.nil? ||
+            parent&.class == Nodes::Header ||
+            parent&.class == Nodes::Paragraph ||
+            parent&.class == Nodes::Hyperlink
+
+          return false
+        end
+
+        true
       end
 
       private

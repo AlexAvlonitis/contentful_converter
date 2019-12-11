@@ -117,17 +117,23 @@ describe ContentfulConverter::Converter do
             nodeType: 'document',
             data: {},
             content: [
-              {
-                nodeType: 'hyperlink',
-                data: {
-                  uri: 'https://google.com'
-                },
+               {
+                nodeType: 'paragraph',
+                data: {},
                 content: [
                   {
-                    marks: [],
-                    value: 'click me',
-                    nodeType: 'text',
-                    data: {}
+                    nodeType: 'hyperlink',
+                    data: {
+                      uri: 'https://google.com'
+                    },
+                    content: [
+                      {
+                        marks: [],
+                        value: 'click me',
+                        nodeType: 'text',
+                        data: {}
+                      }
+                    ]
                   }
                 ]
               }
@@ -212,6 +218,38 @@ describe ContentfulConverter::Converter do
                         ]
                       }
                     ]
+                  }
+                ]
+              }
+            ]
+          }
+        end
+
+        it 'convert html to rich text correctly' do
+          expect(described_class.convert(html)).to eq expected_hash
+        end
+      end
+
+      context 'When we have a list of elements that need P wrapping' do
+        let(:html) do
+          '<html><body><u>underline text</u></body></html>'
+        end
+        let(:expected_hash) do
+          {
+            nodeType: 'document',
+            data: {},
+            content: [
+              {
+                nodeType: 'paragraph',
+                data: {},
+                content: [
+                  {
+                    marks: [
+                      { type: "underline" }
+                    ],
+                    value: 'underline text',
+                    nodeType: 'text',
+                    data: {}
                   }
                 ]
               }

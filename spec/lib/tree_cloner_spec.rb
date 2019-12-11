@@ -18,7 +18,7 @@ describe ContentfulConverter::TreeCloner do
     }
   end
   let(:node_header_instance) do
-    instance_double(ContentfulConverter::Nodes::Header)
+    instance_double(ContentfulConverter::Nodes::Header, needs_p_wrapping?: false)
   end
   let(:node_header_hash) do
     {
@@ -28,7 +28,7 @@ describe ContentfulConverter::TreeCloner do
     }
   end
   let(:node_text_instance) do
-    instance_double(ContentfulConverter::Nodes::Text)
+    instance_double(ContentfulConverter::Nodes::Text, needs_p_wrapping?: false)
   end
   let(:node_text_hash) do
     {
@@ -47,12 +47,12 @@ describe ContentfulConverter::TreeCloner do
 
     allow(node_builder_klass)
       .to receive(:build)
-      .with(nokogiri_fragment.child)
+      .with(nokogiri_fragment.child, node_doc_instance)
       .and_return(node_header_instance)
 
     allow(node_builder_klass)
       .to receive(:build)
-      .with(nokogiri_fragment.css('h1').children.first)
+      .with(nokogiri_fragment.css('h1').children.first, node_header_instance)
       .and_return(node_text_instance)
 
     allow(node_doc_instance).to receive(:to_h) { node_doc_hash }

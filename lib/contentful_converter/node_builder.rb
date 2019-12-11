@@ -39,14 +39,14 @@ module ContentfulConverter
       'a' => Nodes::Hyperlink
     }.freeze
 
-    def self.build(nokogiri_node)
+    def self.build(nokogiri_node, parent = nil)
       rich_text_node = DEFAULT_MAPPINGS[nokogiri_node.name]
 
       unless rich_text_node
         raise "'#{nokogiri_node.name}' Node type, does not exist"
       end
 
-      rich_text_node.new(nokogiri_node)
+      rich_text_node.new(nokogiri_node, parent)
     end
   end
 end

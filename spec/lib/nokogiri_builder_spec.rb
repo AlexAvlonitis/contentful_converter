@@ -10,20 +10,9 @@ describe ContentfulConverter::NokogiriBuilder do
       let(:expected_html) { '<ul><li><p>test</p></li></ul>' }
 
       context 'when the parent is not a ul' do
-        it 'returns the corrent output' do
+        it 'returns the the list with a ul wrapper' do
           result = described_class.build(html)
           expect(result.at('ul').to_html).to eq(expected_html)
-        end
-      end
-
-      context 'when we pass in a list without an appropriate parent or children' do
-        let(:html) { '<li>test</li>' }
-
-        context 'when the parent is not a ul and children not a paragraph' do
-          it 'returns the corrent output' do
-            result = described_class.build(html)
-            expect(result.at('ul').to_html).to eq(expected_html)
-          end
         end
       end
 
@@ -39,7 +28,7 @@ describe ContentfulConverter::NokogiriBuilder do
 
       context 'when the list has multiple p children' do
         let(:html) { '<ol><li><p>test</p><p>test2</p></li></ol>' }
-        let(:expected_html) { '<ol><li><p>test test2</p></li></ol>' }
+        let(:expected_html) { "<ol><li>\n<p>test</p>\n<p>test2</p>\n</li></ol>" }
 
         it 'wraps the children in a single p element' do
           result = described_class.build(html)
@@ -49,7 +38,7 @@ describe ContentfulConverter::NokogiriBuilder do
 
       context 'when the list has multiple mixed children' do
         let(:html) { '<ol><li><p>test</p><u>test2</u><i>test2</i></li></ol>' }
-        let(:expected_html) { '<ol><li><p>test <u>test2</u><i>test2</i></p></li></ol>' }
+        let(:expected_html) { "<ol><li>\n<p>test</p>\n<u>test2</u><i>test2</i>\n</li></ol>" }
 
         it 'wraps the children in a single p element keeping the rest as they are' do
           result = described_class.build(html)
