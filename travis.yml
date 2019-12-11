@@ -1,0 +1,8 @@
+language: ruby
+rvm:
+ - 2.6.3
+install:
+  - bundle install --path vendor/bundle
+script:
+  - bundle exec rspec
+  - bundle exec rspec ./spec/features/*
