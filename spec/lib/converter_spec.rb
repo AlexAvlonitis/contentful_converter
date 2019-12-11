@@ -8,7 +8,11 @@ describe ContentfulConverter::Converter do
   let(:nokogiri_fragment) { double(:nokogiri_fragment) }
 
   before do
-    allow(Nokogiri::HTML).to receive(:fragment).with(html) { nokogiri_fragment }
+    allow(ContentfulConverter::NokogiriBuilder)
+      .to receive(:build)
+      .with(html)
+      .and_return(nokogiri_fragment)
+
     allow(ContentfulConverter::TreeCloner)
       .to receive(:nokogiri_to_rich_text)
       .with(nokogiri_fragment)

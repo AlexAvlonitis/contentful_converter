@@ -2,6 +2,7 @@
 
 require 'nokogiri'
 require 'contentful_converter/tree_cloner'
+require 'contentful_converter/nokogiri_builder'
 
 module ContentfulConverter
   class Converter
@@ -25,14 +26,7 @@ module ContentfulConverter
       end
 
       def nokogiri_fragment(html)
-        Nokogiri::HTML.fragment(sanitize(html))
-      end
-
-      def sanitize(html)
-        html = html.dup
-        html.gsub!('div>', 'p>')
-        html.gsub!('section>', 'p>')
-        html
+        NokogiriBuilder.build(html)
       end
     end
   end

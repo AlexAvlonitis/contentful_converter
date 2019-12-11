@@ -45,7 +45,6 @@ describe ContentfulConverter::TreeCloner do
       .with(nokogiri_fragment)
       .and_return(node_doc_instance)
 
-
     allow(node_builder_klass)
       .to receive(:build)
       .with(nokogiri_fragment.child)
@@ -53,7 +52,7 @@ describe ContentfulConverter::TreeCloner do
 
     allow(node_builder_klass)
       .to receive(:build)
-      .with( nokogiri_fragment.css('h1').children.first)
+      .with(nokogiri_fragment.css('h1').children.first)
       .and_return(node_text_instance)
 
     allow(node_doc_instance).to receive(:to_h) { node_doc_hash }

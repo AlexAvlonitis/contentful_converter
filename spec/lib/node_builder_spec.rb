@@ -19,7 +19,7 @@ describe ContentfulConverter::NodeBuilder do
 
       context 'when we pass in header nokogiri nodes' do
         it 'instantiates a Header rich_text node' do
-          ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].each do |v|
+          %w[h1 h2 h3 h4 h5 h6].each do |v|
             allow(nokogiri_node).to receive(:name) { v }
 
             expect(described_class.build(nokogiri_node))
@@ -66,7 +66,7 @@ describe ContentfulConverter::NodeBuilder do
 
       context 'when we pass in bold text nokogiri node' do
         it 'instantiates a Strong rich_text node' do
-          ['strong', 'b'].each do |v|
+          %w[strong b].each do |v|
             allow(nokogiri_node).to receive(:name) { v }
 
             expect(described_class.build(nokogiri_node))
@@ -77,7 +77,7 @@ describe ContentfulConverter::NodeBuilder do
 
       context 'when we pass in paragraph nokogiri node' do
         it 'instantiates a Paragraph rich_text node' do
-          ['p', 'div', 'br', 'section'].each do |v|
+          %w[p div br section].each do |v|
             allow(nokogiri_node).to receive(:name) { v }
 
             expect(described_class.build(nokogiri_node))

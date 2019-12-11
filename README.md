@@ -40,7 +40,15 @@ ContentfulConverter.convert('<h3>hello world</h3>')
     }
   ]
 }
+```
 
+### Tests
+```ruby
+# Unit tests
+rspec
+
+# Feature tests
+rspec ./spec/features/*
 ```
 
 ### Contributions

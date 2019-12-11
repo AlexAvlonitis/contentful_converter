@@ -8,6 +8,9 @@ require 'contentful_converter/nodes/underline'
 require 'contentful_converter/nodes/italic'
 require 'contentful_converter/nodes/strong'
 require 'contentful_converter/nodes/code'
+require 'contentful_converter/nodes/ordered_list'
+require 'contentful_converter/nodes/unordered_list'
+require 'contentful_converter/nodes/list_item'
 require 'contentful_converter/nodes/hyperlink'
 
 module ContentfulConverter
@@ -30,6 +33,9 @@ module ContentfulConverter
       'div' => Nodes::Paragraph,
       'br' => Nodes::Paragraph,
       'section' => Nodes::Paragraph,
+      'ul' => Nodes::UnorderedList,
+      'ol' => Nodes::OrderedList,
+      'li' => Nodes::ListItem,
       'a' => Nodes::Hyperlink
     }.freeze
 

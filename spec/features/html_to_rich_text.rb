@@ -63,7 +63,7 @@ describe ContentfulConverter::Converter do
               {
                 nodeType: 'paragraph',
                 data: {},
-                content: [],
+                content: []
               },
               {
                 nodeType: 'heading-1',
@@ -80,7 +80,7 @@ describe ContentfulConverter::Converter do
               {
                 nodeType: 'paragraph',
                 data: {},
-                content: [],
+                content: []
               },
               {
                 nodeType: 'paragraph',
@@ -128,6 +128,90 @@ describe ContentfulConverter::Converter do
                     value: 'click me',
                     nodeType: 'text',
                     data: {}
+                  }
+                ]
+              }
+            ]
+          }
+        end
+
+        it 'convert html to rich text correctly' do
+          expect(described_class.convert(html)).to eq expected_hash
+        end
+      end
+
+      context 'When we have a list item' do
+        let(:html) do
+          '<html><body><ol><li><p>list text</p></li></ol></body></html>'
+        end
+        let(:expected_hash) do
+          {
+            nodeType: 'document',
+            data: {},
+            content: [
+              {
+                nodeType: 'ordered-list',
+                data: {},
+                content: [
+                  {
+                    nodeType: 'list-item',
+                    data: {},
+                    content: [
+                      {
+                        nodeType: 'paragraph',
+                        data: {},
+                        content: [
+                          {
+                            marks: [],
+                            value: 'list text',
+                            nodeType: 'text',
+                            data: {}
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        end
+
+        it 'convert html to rich text correctly' do
+          expect(described_class.convert(html)).to eq expected_hash
+        end
+      end
+
+      context 'When we have an incomplete list item' do
+        let(:html) do
+          '<html><body><li>list text</li></body></html>'
+        end
+        let(:expected_hash) do
+          {
+            nodeType: 'document',
+            data: {},
+            content: [
+              {
+                nodeType: 'unordered-list',
+                data: {},
+                content: [
+                  {
+                    nodeType: 'list-item',
+                    data: {},
+                    content: [
+                      {
+                        nodeType: 'paragraph',
+                        data: {},
+                        content: [
+                          {
+                            marks: [],
+                            value: 'list text',
+                            nodeType: 'text',
+                            data: {}
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               }
