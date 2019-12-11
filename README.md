@@ -1,5 +1,7 @@
 ## Contentful HTML to Rich Text converter
 
+[![Build Status](https://travis-ci.org/AlexAvlonitis/contentful_converter.svg?branch=master)](https://travis-ci.org/AlexAvlonitis/contentful_converter)
+
 Converts plain html string to contentful specific rich_text hash structure.
 
 *WIP, does not cover all html elements, contributions are welcome*
