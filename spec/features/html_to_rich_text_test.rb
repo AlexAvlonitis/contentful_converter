@@ -231,8 +231,49 @@ describe ContentfulConverter::Converter do
       end
 
       context 'When we have a list of elements that need P wrapping' do
+        context 'with marks' do
+          [
+            ['b', 'strong'],
+            ['u', 'underline'],
+            ['i', 'italic'],
+            ['code', 'code']
+          ].each do |elem, text|
+            let(:html) do
+              "<html><body><#{elem}>underline text</#{elem}></body></html>"
+            end
+            let(:expected_hash) do
+              {
+                nodeType: 'document',
+                data: {},
+                content: [
+                  {
+                    nodeType: 'paragraph',
+                    data: {},
+                    content: [
+                      {
+                        marks: [
+                          { type: text }
+                        ],
+                        value: 'underline text',
+                        nodeType: 'text',
+                        data: {}
+                      }
+                    ]
+                  }
+                ]
+              }
+            end
+
+            it 'convert html to rich text correctly' do
+              expect(described_class.convert(html)).to eq expected_hash
+            end
+          end
+        end
+      end
+
+      context 'when there is a blockquote element' do
         let(:html) do
-          '<html><body><u>underline text</u></body></html>'
+          "<html><body><blockquote>blockquote text</blockquote></body></html>"
         end
         let(:expected_hash) do
           {
@@ -240,16 +281,20 @@ describe ContentfulConverter::Converter do
             data: {},
             content: [
               {
-                nodeType: 'paragraph',
+                nodeType: 'blockquote',
                 data: {},
                 content: [
                   {
-                    marks: [
-                      { type: "underline" }
-                    ],
-                    value: 'underline text',
-                    nodeType: 'text',
-                    data: {}
+                    nodeType: 'paragraph',
+                    data: {},
+                    content: [
+                      {
+                        marks: [],
+                        value: 'blockquote text',
+                        nodeType: 'text',
+                        data: {}
+                      }
+                    ]
                   }
                 ]
               }

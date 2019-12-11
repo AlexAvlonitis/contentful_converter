@@ -3,6 +3,7 @@
 require 'contentful_converter/nodes/document'
 require 'contentful_converter/nodes/header'
 require 'contentful_converter/nodes/paragraph'
+require 'contentful_converter/nodes/blockquote'
 require 'contentful_converter/nodes/text'
 require 'contentful_converter/nodes/underline'
 require 'contentful_converter/nodes/italic'
@@ -33,6 +34,7 @@ module ContentfulConverter
       'div' => Nodes::Paragraph,
       'br' => Nodes::Paragraph,
       'section' => Nodes::Paragraph,
+      'blockquote' => Nodes::Blockquote,
       'ul' => Nodes::UnorderedList,
       'ol' => Nodes::OrderedList,
       'li' => Nodes::ListItem,

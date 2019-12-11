@@ -46,6 +46,15 @@ describe ContentfulConverter::NodeBuilder do
         end
       end
 
+      context 'when we pass in blockquote nokogiri node' do
+        it 'instantiates an Blockquote rich_text node' do
+          allow(nokogiri_node).to receive(:name) { 'blockquote' }
+
+          expect(described_class.build(nokogiri_node))
+            .to be_an_instance_of(ContentfulConverter::Nodes::Blockquote)
+        end
+      end
+
       context 'when we pass in italic text nokogiri node' do
         it 'instantiates an Italic rich_text node' do
           allow(nokogiri_node).to receive(:name) { 'i' }
