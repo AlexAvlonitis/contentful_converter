@@ -190,6 +190,94 @@ describe ContentfulConverter::Converter do
             expect(described_class.convert(html)).to eq expected_hash
           end
         end
+
+        context 'when the link does not have a protocol and has an extension' do
+          let(:html) do
+            '<html><body><a href="12398sadkcw.docx">asset entry</a></body></html>'
+          end
+          let(:expected_hash) do
+            {
+              nodeType: 'document',
+              data: {},
+              content: [
+                {
+                  nodeType: "paragraph",
+                  data: {},
+                  content: [
+                    {
+                      nodeType: "asset-hyperlink",
+                      data: {
+                        target: {
+                          sys: {
+                            id: "12398sadkcw",
+                            type: "Link",
+                            linkType: "Asset"
+                          }
+                        }
+                      },
+                      content: [
+                        {
+                          data: {},
+                          marks: [],
+                          value: "asset entry",
+                          nodeType: "text"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          end
+
+          it 'creates an asset entry with the href as a link id' do
+            expect(described_class.convert(html)).to eq expected_hash
+          end
+        end
+
+        context 'when the link is blank' do
+          let(:html) do
+            '<html><body><a href="">click</a></body></html>'
+          end
+          let(:expected_hash) do
+            {
+              nodeType: 'document',
+              data: {},
+              content: [
+                {
+                  nodeType: "paragraph",
+                  data: {},
+                  content: [
+                    {
+                      nodeType: "entry-hyperlink",
+                      data: {
+                        target: {
+                          sys: {
+                            id: nil,
+                            type: "Link",
+                            linkType: "Entry"
+                          }
+                        }
+                      },
+                      content: [
+                        {
+                          data: {},
+                          marks: [],
+                          value: "click",
+                          nodeType: "text"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          end
+
+          it 'creates an entry hyperlink with nil ID' do
+            expect(described_class.convert(html)).to eq expected_hash
+          end
+        end
       end
 
       context 'When we have a list item' do

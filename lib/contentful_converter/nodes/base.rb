@@ -16,7 +16,7 @@ module ContentfulConverter
         @content << node
       end
 
-      def to_h(params = {})
+      def to_h(params = options)
         params[:nodeType] = node_type
         params[:data]     = params[:data] || {}
         params[:content]  = content.map(&:to_h).compact
@@ -46,7 +46,7 @@ module ContentfulConverter
       end
 
       def options
-        raise NotImplementedError
+        {}
       end
     end
   end

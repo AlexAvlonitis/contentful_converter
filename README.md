@@ -44,6 +44,17 @@ ContentfulConverter.convert('<h3>hello world</h3>')
 }
 ```
 
+### Additional info
+**HREF links**
+
+* HTML hyperlinks with full URL e.g: (https://google.com), will be converted into URL hyperlinks
+
+* HTML hyperlinks without a scheme e.g: ('/aboutus/contact'), will be converted into ENTRY hyperlinks, with the href value as an ID
+
+* HTML hyperlinks without a scheme but with an extension e.g: ('myfile.docx'), will be converted into ASSET hyperlinks, with the href value as an ID, minus the extension.
+
+---
+
 ### Tests
 ```ruby
 # Unit tests

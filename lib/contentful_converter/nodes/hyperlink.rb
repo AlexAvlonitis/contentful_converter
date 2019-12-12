@@ -6,41 +6,56 @@ require 'uri'
 module ContentfulConverter
   module Nodes
     class Hyperlink < Base
-      def to_h(params = options)
-        super
-      end
-
       private
 
       def type
-        href_uri_value.scheme ? 'hyperlink' : 'entry-hyperlink'
+        return 'asset-hyperlink' if !(uri_scheme?) && uri_extension?
+        return 'entry-hyperlink' unless uri_scheme?
+
+        'hyperlink'
       end
 
       def options
-        href_uri_value.scheme ? hyperlink_option : hyperlink_entry_option
+        return hyperlink_entry_option("Asset") if !(uri_scheme?) && uri_extension?
+        return hyperlink_entry_option("Entry") unless uri_scheme?
+
+        hyperlink_option
       end
 
       def hyperlink_option
-        { data: { uri: href_uri_value.to_s } }
+        { data: { uri: parsed_href.to_s } }
       end
 
-      def hyperlink_entry_option
+      def hyperlink_entry_option(type)
         {
           data: {
             target: {
               sys: {
-                id: href_uri_value.to_s,
+                id: parsed_href.to_s.split('.').first,
                 type: "Link",
-                linkType: "Entry"
+                linkType: type
               }
             }
           }
         }
       end
 
-      def href_uri_value
-        h = nokogiri_node['href']
-        h ? URI(h) : URI('#empty')
+      def uri_scheme?
+        parsed_href.scheme
+      end
+
+      def uri_extension?
+        parsed_href.to_s.split('.')[1]
+      end
+
+      def parsed_href
+        return URI(href_value) if href_value
+
+        URI('')
+      end
+
+      def href_value
+        nokogiri_node['href']
       end
     end
   end
