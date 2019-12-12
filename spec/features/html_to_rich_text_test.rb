@@ -306,6 +306,29 @@ describe ContentfulConverter::Converter do
           expect(described_class.convert(html)).to eq expected_hash
         end
       end
+
+      context 'when there is an hr element' do
+        let(:html) do
+          "<html><body><hr></body></html>"
+        end
+        let(:expected_hash) do
+          {
+            nodeType: 'document',
+            data: {},
+            content: [
+              {
+                nodeType: 'hr',
+                data: {},
+                content: []
+              }
+            ]
+          }
+        end
+
+        it 'convert html to rich text correctly' do
+          expect(described_class.convert(html)).to eq expected_hash
+        end
+      end
     end
 
     context 'On failure' do

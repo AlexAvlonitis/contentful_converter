@@ -11,6 +11,7 @@ require 'contentful_converter/nodes/strong'
 require 'contentful_converter/nodes/code'
 require 'contentful_converter/nodes/ordered_list'
 require 'contentful_converter/nodes/unordered_list'
+require 'contentful_converter/nodes/horizontal_line'
 require 'contentful_converter/nodes/list_item'
 require 'contentful_converter/nodes/hyperlink'
 
@@ -34,6 +35,7 @@ module ContentfulConverter
       'div' => Nodes::Paragraph,
       'br' => Nodes::Paragraph,
       'section' => Nodes::Paragraph,
+      'hr' => Nodes::HorizontalLine,
       'blockquote' => Nodes::Blockquote,
       'ul' => Nodes::UnorderedList,
       'ol' => Nodes::OrderedList,
