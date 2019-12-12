@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'contentful_converter/node_builder'
 
 describe ContentfulConverter::NodeBuilder do
-  let(:nokogiri_node) { double(:nokogiri_node, name: nil) }
+  let(:nokogiri_node) { double(:nokogiri_node, name: nil, :[] => nil ) }
 
   describe '.build' do
     context 'when we pass in a valid nokogiri node' do

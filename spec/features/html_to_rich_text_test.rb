@@ -109,40 +109,86 @@ describe ContentfulConverter::Converter do
       end
 
       context 'When we have a link' do
-        let(:html) do
-          '<html><body><a href="https://google.com">click me</a></body></html>'
-        end
-        let(:expected_hash) do
-          {
-            nodeType: 'document',
-            data: {},
-            content: [
-               {
-                nodeType: 'paragraph',
-                data: {},
-                content: [
-                  {
-                    nodeType: 'hyperlink',
-                    data: {
-                      uri: 'https://google.com'
-                    },
-                    content: [
-                      {
-                        marks: [],
-                        value: 'click me',
-                        nodeType: 'text',
-                        data: {}
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
+        context 'When the link has protocol e.g http(s)' do
+          let(:html) do
+            '<html><body><a href="https://google.com">click me</a></body></html>'
+          end
+          let(:expected_hash) do
+            {
+              nodeType: 'document',
+              data: {},
+              content: [
+                {
+                  nodeType: 'paragraph',
+                  data: {},
+                  content: [
+                    {
+                      nodeType: 'hyperlink',
+                      data: {
+                        uri: 'https://google.com'
+                      },
+                      content: [
+                        {
+                          marks: [],
+                          value: 'click me',
+                          nodeType: 'text',
+                          data: {}
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          end
+
+          it 'creates a normal hyperlink structure' do
+            expect(described_class.convert(html)).to eq expected_hash
+          end
         end
 
-        it 'convert html to rich text correctly' do
-          expect(described_class.convert(html)).to eq expected_hash
+        context 'when the link does not have a protocol' do
+          let(:html) do
+            '<html><body><a href="12398sadkcw">hyperlink entry</a></body></html>'
+          end
+          let(:expected_hash) do
+            {
+              nodeType: 'document',
+              data: {},
+              content: [
+                {
+                  nodeType: "paragraph",
+                  data: {},
+                  content: [
+                    {
+                      nodeType: "entry-hyperlink",
+                      data: {
+                        target: {
+                          sys: {
+                            id: "12398sadkcw",
+                            type: "Link",
+                            linkType: "Entry"
+                          }
+                        }
+                      },
+                      content: [
+                        {
+                          data: {},
+                          marks: [],
+                          value: "hyperlink entry",
+                          nodeType: "text"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          end
+
+          it 'creates a hyperlink entry with the href as a link id' do
+            expect(described_class.convert(html)).to eq expected_hash
+          end
         end
       end
 

@@ -44,6 +44,10 @@ module ContentfulConverter
       def type
         raise NotImplementedError
       end
+
+      def options
+        raise NotImplementedError
+      end
     end
   end
 end
