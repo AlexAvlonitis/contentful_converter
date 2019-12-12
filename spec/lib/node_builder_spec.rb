@@ -66,10 +66,12 @@ describe ContentfulConverter::NodeBuilder do
 
       context 'when we pass in italic text nokogiri node' do
         it 'instantiates an Italic rich_text node' do
-          allow(nokogiri_node).to receive(:name) { 'i' }
+          %w[i em].each do |v|
+            allow(nokogiri_node).to receive(:name) { v }
 
-          expect(described_class.build(nokogiri_node))
-            .to be_an_instance_of(ContentfulConverter::Nodes::Italic)
+            expect(described_class.build(nokogiri_node))
+              .to be_an_instance_of(ContentfulConverter::Nodes::Italic)
+          end
         end
       end
 

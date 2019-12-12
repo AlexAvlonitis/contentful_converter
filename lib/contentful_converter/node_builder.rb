@@ -27,6 +27,7 @@ module ContentfulConverter
       'h6' => Nodes::Header,
       'text' => Nodes::Text,
       'i' => Nodes::Italic,
+      'em' => Nodes::Italic,
       'u' => Nodes::Underline,
       'b' => Nodes::Strong,
       'code' => Nodes::Code,
