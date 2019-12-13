@@ -6,6 +6,20 @@ require 'contentful_converter/converter'
 describe ContentfulConverter::Converter do
   describe 'Convert' do
     context 'On success' do
+      context 'When we our html does not have any elements' do
+        let(:expected_hash) do
+          {
+            nodeType: 'document',
+            data: {},
+            content: []
+          }
+        end
+
+        it 'returns a single Document hash' do
+          expect(described_class.convert('<html><html>')).to eq expected_hash
+        end
+      end
+
       let(:html) do
         '<html><body><div><p>paragraph text</p><h1>hello world</h1></div></body></html>'
       end
@@ -278,6 +292,66 @@ describe ContentfulConverter::Converter do
             expect(described_class.convert(html)).to eq expected_hash
           end
         end
+
+        context 'when there is an embed html element' do
+          context 'when it is an entry' do
+            let(:html) { '<embed src="2vtrc4TqIHNjolX299pik7" type="entry"/>' }
+            let(:expected_hash) do
+              {
+                nodeType: "document",
+                data: {},
+                content: [
+                  {
+                    data: {
+                      target: {
+                        sys: {
+                          id: "2vtrc4TqIHNjolX299pik7",
+                          type: "Link",
+                          linkType: "Entry"
+                        }
+                      }
+                    },
+                    content: [],
+                    nodeType: "embedded-entry-block"
+                  }
+                ]
+              }
+            end
+
+            it 'creates an embedded entry block with the src as an ID' do
+              expect(described_class.convert(html)).to eq expected_hash
+            end
+          end
+
+          context 'when it is an asset' do
+            let(:html) { '<embed src="2vtrc4TqIHNjolX299pik7" type="asset"/>' }
+            let(:expected_hash) do
+              {
+                nodeType: "document",
+                data: {},
+                content: [
+                  {
+                    data: {
+                      target: {
+                        sys: {
+                          id: "2vtrc4TqIHNjolX299pik7",
+                          type: "Link",
+                          linkType: "Asset"
+                        }
+                      }
+                    },
+                    content: [],
+                    nodeType: "embedded-asset-block"
+                  }
+                ]
+              }
+            end
+
+            it 'creates an embedded entry block with the src as an ID' do
+              expect(described_class.convert(html)).to eq expected_hash
+            end
+          end
+        end
       end
 
       context 'When we have a list item' do
@@ -472,17 +546,23 @@ describe ContentfulConverter::Converter do
         end
       end
 
-      context 'When we our html does not have any elements' do
-        let(:expected_hash) do
-          {
-            nodeType: 'document',
-            data: {},
-            content: []
-          }
+      context 'when there is an embed html element' do
+        context 'and it does not have a type' do
+          let(:html) { '<embed src="2vtrc4TqIHNjolX299pik7"/>' }
+
+          it 'raises an error' do
+            expect { described_class.convert(html) }
+              .to raise_error('Embed element requires a type')
+          end
         end
 
-        it 'returns a single Document hash' do
-          expect(described_class.convert('<html><html>')).to eq expected_hash
+        context 'and the type is wrong' do
+          let(:html) { '<embed src="2vtrc4TqIHNjolX299pik7" type="link"/>' }
+
+          it 'raises an error' do
+            expect { described_class.convert(html) }
+              .to raise_error('Incorrect embed type')
+          end
         end
       end
     end

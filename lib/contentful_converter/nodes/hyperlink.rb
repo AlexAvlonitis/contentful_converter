@@ -23,7 +23,7 @@ module ContentfulConverter
       end
 
       def hyperlink_option
-        { data: { uri: parsed_href.to_s } }
+        { data: { uri: parsed_link.to_s } }
       end
 
       def hyperlink_entry_option(type)
@@ -31,7 +31,7 @@ module ContentfulConverter
           data: {
             target: {
               sys: {
-                id: parsed_href.to_s.split('.').first,
+                id: parsed_link.to_s.split('.').first,
                 type: "Link",
                 linkType: type
               }
@@ -41,21 +41,19 @@ module ContentfulConverter
       end
 
       def uri_scheme?
-        parsed_href.scheme
+        parsed_link.scheme
       end
 
       def uri_extension?
-        parsed_href.to_s.split('.')[1]
+        parsed_link.to_s.split('.')[1]
       end
 
-      def parsed_href
-        return URI(href_value) if href_value
-
-        URI('')
+      def parsed_link
+        link_value ? URI(link_value) : URI('')
       end
 
-      def href_value
-        nokogiri_node['href']
+      def link_value
+        nokogiri_node[:href]
       end
     end
   end

@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'contentful_converter/node_builder'
 
 describe ContentfulConverter::NodeBuilder do
-  let(:nokogiri_node) { double(:nokogiri_node, name: nil, :[] => nil ) }
+  let(:nokogiri_node) { double(:nokogiri_node, name: nil, :[] => nil) }
 
   describe '.build' do
     context 'when we pass in a valid nokogiri node' do
@@ -34,6 +34,16 @@ describe ContentfulConverter::NodeBuilder do
 
           expect(described_class.build(nokogiri_node))
             .to be_an_instance_of(ContentfulConverter::Nodes::Text)
+        end
+      end
+
+      context 'when we pass in embed nokogiri node' do
+        it 'instantiates an Embed rich_text node' do
+          allow(nokogiri_node).to receive(:name) { 'embed' }
+          allow(nokogiri_node).to receive(:[]) { 'entry' }
+
+          expect(described_class.build(nokogiri_node))
+            .to be_an_instance_of(ContentfulConverter::Nodes::Embed)
         end
       end
 

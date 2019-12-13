@@ -45,13 +45,131 @@ ContentfulConverter.convert('<h3>hello world</h3>')
 ```
 
 ### Additional info
-**HREF links**
 
-* HTML hyperlinks with full URL e.g: (https://google.com), will be converted into URL hyperlinks
+**`<a>`**
 
-* HTML hyperlinks without a scheme e.g: ('/aboutus/contact'), will be converted into ENTRY hyperlinks, with the href value as an ID
+* HTML hyperlinks with full URL e.g: (`<a href="https://google.com"></a>`), will be converted into URL hyperlinks
+  ```ruby
+  {
+    nodeType: 'paragraph',
+    data: {},
+    content: [
+      {
+        nodeType: 'hyperlink',
+        data: {
+          uri: 'https://google.com'
+        },
+        content: [
+          {
+            marks: [],
+            value: 'click me',
+            nodeType: 'text',
+            data: {}
+          }
+        ]
+      }
+    ]
+  }
+  ```
 
-* HTML hyperlinks without a scheme but with an extension e.g: ('myfile.docx'), will be converted into ASSET hyperlinks, with the href value as an ID, minus the extension.
+* HTML hyperlinks without a scheme e.g: (`<a href="/about_us/contact">about us</a>`), will be converted into ENTRY hyperlinks, with the href value as an ID
+  ```ruby
+  {
+    nodeType: "paragraph",
+    data: {},
+    content: [
+      {
+        nodeType: "entry-hyperlink",
+        data: {
+          target: {
+            sys: {
+              id: "/about_us/contact",
+              type: "Link",
+              linkType: "Entry"
+            }
+          }
+        },
+        content: [
+          {
+            data: {},
+            marks: [],
+            value: "about us",
+            nodeType: "text"
+          }
+        ]
+      }
+    ]
+  }
+  ```
+
+* HTML hyperlinks without a scheme but with an extension e.g: (`<a href="/path/to_file.docx">file</a>`), will be converted into ASSET hyperlinks, with the href value as an ID, excluding the extension.
+  ```ruby
+  {
+    nodeType: "paragraph",
+    data: {},
+    content: [
+      {
+        nodeType: "asset-hyperlink",
+        data: {
+          target: {
+            sys: {
+              id: "/path/to_file",
+              type: "Link",
+              linkType: "Entry"
+            }
+          }
+        },
+        content: [
+          {
+            data: {},
+            marks: [],
+            value: "file",
+            nodeType: "text"
+          }
+        ]
+      }
+    ]
+  }
+  ```
+
+**`<embed />`**
+
+If you want to add an embedded entry block, you need to create an `<embed>` element in HTML
+with src as the entry ID and type for the entry type.
+
+* Embedded Entry block: `<embed src="id_of_your_entry_123" type="entry"/>`
+  ```ruby
+    {
+      data: {
+        target: {
+          sys: {
+            id: "id_of_your_entry_123",
+            type: "Link",
+            linkType: "Entry"
+          }
+        }
+      },
+      content: [],
+      nodeType: "embedded-entry-block"
+    }
+  ```
+
+* Embedded Asset block: `<embed src="id_of_your_entry_123" type="asset"/>`
+  ```ruby
+    {
+      data: {
+        target: {
+          sys: {
+            id: "id_of_your_entry_123",
+            type: "Link",
+            linkType: "Asset"
+          }
+        }
+      },
+      content: [],
+      nodeType: "embedded-asset-block"
+    }
+  ```
 
 ---
 

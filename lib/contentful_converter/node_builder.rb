@@ -9,6 +9,7 @@ require 'contentful_converter/nodes/underline'
 require 'contentful_converter/nodes/italic'
 require 'contentful_converter/nodes/strong'
 require 'contentful_converter/nodes/code'
+require 'contentful_converter/nodes/embed'
 require 'contentful_converter/nodes/ordered_list'
 require 'contentful_converter/nodes/unordered_list'
 require 'contentful_converter/nodes/horizontal_line'
@@ -36,6 +37,7 @@ module ContentfulConverter
       'div' => Nodes::Paragraph,
       'br' => Nodes::Paragraph,
       'section' => Nodes::Paragraph,
+      'embed' => Nodes::Embed,
       'hr' => Nodes::HorizontalLine,
       'blockquote' => Nodes::Blockquote,
       'ul' => Nodes::UnorderedList,
