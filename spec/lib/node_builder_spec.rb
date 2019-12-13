@@ -39,11 +39,13 @@ describe ContentfulConverter::NodeBuilder do
 
       context 'when we pass in embed nokogiri node' do
         it 'instantiates an Embed rich_text node' do
-          allow(nokogiri_node).to receive(:name) { 'embed' }
-          allow(nokogiri_node).to receive(:[]) { 'entry' }
+          ['img', 'embed'].each do |v|
+            allow(nokogiri_node).to receive(:name) { v }
+            allow(nokogiri_node).to receive(:[]) { 'entry' }
 
-          expect(described_class.build(nokogiri_node))
-            .to be_an_instance_of(ContentfulConverter::Nodes::Embed)
+            expect(described_class.build(nokogiri_node))
+              .to be_an_instance_of(ContentfulConverter::Nodes::Embed)
+          end
         end
       end
 

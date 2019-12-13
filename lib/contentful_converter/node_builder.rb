@@ -38,6 +38,7 @@ module ContentfulConverter
       'br' => Nodes::Paragraph,
       'section' => Nodes::Paragraph,
       'embed' => Nodes::Embed,
+      'img' => Nodes::Embed,
       'hr' => Nodes::HorizontalLine,
       'blockquote' => Nodes::Blockquote,
       'ul' => Nodes::UnorderedList,

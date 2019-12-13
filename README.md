@@ -132,10 +132,11 @@ ContentfulConverter.convert('<h3>hello world</h3>')
   }
   ```
 
-**`<embed />`**
+**`<embed />` AND `<img />`**
 
 If you want to add an embedded entry block, you need to create an `<embed>` element in HTML
-with src as the entry ID and type for the entry type.
+with src and type attributes, for ID and entry type. Images will be converted into
+embedded-asset-blocks by default and the src will be used as an ID.
 
 * Embedded Entry block: `<embed src="id_of_your_entry_123" type="entry"/>`
   ```ruby
@@ -155,6 +156,7 @@ with src as the entry ID and type for the entry type.
   ```
 
 * Embedded Asset block: `<embed src="id_of_your_entry_123" type="asset"/>`
+  Images: `<img src='id_of_your_entry_123' />`
   ```ruby
     {
       data: {

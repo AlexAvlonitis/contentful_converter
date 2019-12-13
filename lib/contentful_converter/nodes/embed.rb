@@ -21,11 +21,11 @@ module ContentfulConverter
       end
 
       def options
-        hyperlink_entry_option(type_value.capitalize)
+        hyperlink_entry_option(type_value.to_s.capitalize)
       end
 
       def type_value
-        nokogiri_node[:type] || raise('Embed element requires a type')
+        nokogiri_node[:type] || :asset
       end
 
       def parsed_link
