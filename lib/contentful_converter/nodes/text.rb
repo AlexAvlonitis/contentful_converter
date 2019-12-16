@@ -6,6 +6,8 @@ module ContentfulConverter
   module Nodes
     class Text < Base
       def to_h(params = options)
+        return nil if value.strip.empty?
+
         super
         params.delete(:content)
         params

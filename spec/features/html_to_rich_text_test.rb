@@ -574,6 +574,29 @@ describe ContentfulConverter::Converter do
           expect(described_class.convert(html)).to eq expected_hash
         end
       end
+
+      context 'when a text element is blank' do
+        let(:html) do
+          "<html><body><p>    </p></body></html>"
+        end
+        let(:expected_hash) do
+          {
+            nodeType: 'document',
+            data: {},
+            content: [
+              {
+                nodeType: 'paragraph',
+                data: {},
+                content: []
+              }
+            ]
+          }
+        end
+
+        it 'does not create a text element' do
+          expect(described_class.convert(html)).to eq expected_hash
+        end
+      end
     end
 
     context 'On failure' do
