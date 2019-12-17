@@ -30,10 +30,12 @@ describe ContentfulConverter::NodeBuilder do
 
       context 'when we pass in text nokogiri node' do
         it 'instantiates a Text rich_text node' do
-          allow(nokogiri_node).to receive(:name) { 'text' }
+          ['span', 'text'].each do |v|
+            allow(nokogiri_node).to receive(:name) { v }
 
-          expect(described_class.build(nokogiri_node))
-            .to be_an_instance_of(ContentfulConverter::Nodes::Text)
+            expect(described_class.build(nokogiri_node))
+              .to be_an_instance_of(ContentfulConverter::Nodes::Text)
+          end
         end
       end
 
