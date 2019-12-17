@@ -31,11 +31,6 @@ describe ContentfulConverter::Converter do
             {
               nodeType: 'paragraph',
               data: {},
-              content: []
-            },
-            {
-              nodeType: 'paragraph',
-              data: {},
               content: [
                 {
                   marks: [],
@@ -75,11 +70,6 @@ describe ContentfulConverter::Converter do
             data: {},
             content: [
               {
-                nodeType: 'paragraph',
-                data: {},
-                content: []
-              },
-              {
                 nodeType: 'heading-1',
                 data: {},
                 content: [
@@ -94,11 +84,6 @@ describe ContentfulConverter::Converter do
               {
                 nodeType: 'paragraph',
                 data: {},
-                content: []
-              },
-              {
-                nodeType: 'paragraph',
-                data: {},
                 content: [
                   {
                     marks: [],
@@ -107,11 +92,6 @@ describe ContentfulConverter::Converter do
                     data: {}
                   }
                 ]
-              },
-              {
-                nodeType: 'paragraph',
-                data: {},
-                content: []
               }
             ]
           }
@@ -575,7 +555,7 @@ describe ContentfulConverter::Converter do
         end
       end
 
-      context 'when a text element is blank' do
+      context 'when a paragraph element is blank' do
         let(:html) do
           "<html><body><p>    </p></body></html>"
         end
@@ -583,17 +563,11 @@ describe ContentfulConverter::Converter do
           {
             nodeType: 'document',
             data: {},
-            content: [
-              {
-                nodeType: 'paragraph',
-                data: {},
-                content: []
-              }
-            ]
+            content: []
           }
         end
 
-        it 'does not create a text element' do
+        it 'does not create it' do
           expect(described_class.convert(html)).to eq expected_hash
         end
       end

@@ -9,6 +9,13 @@ module ContentfulConverter
         false
       end
 
+      def to_h(params = {})
+        super
+        return nil if params[:content].empty?
+
+        params
+      end
+
       private
 
       def type
