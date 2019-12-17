@@ -45,6 +45,16 @@ describe ContentfulConverter::NokogiriBuilder do
           expect(result.at('ol').to_html).to eq(expected_html)
         end
       end
+
+      context 'when the html has a section element' do
+        let(:html) { '<section class="test"><p>test</p></section>' }
+        let(:expected_html) { '<p class="test"></p><p>test</p>' }
+
+        it 'converts the section into <p> and removes the wrapping' do
+          result = described_class.build(html)
+          expect(result.to_html).to eq(expected_html)
+        end
+      end
     end
   end
 end

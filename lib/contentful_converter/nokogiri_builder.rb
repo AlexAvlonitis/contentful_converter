@@ -6,18 +6,22 @@ module ContentfulConverter
   class NokogiriBuilder
     class << self
       def build(html)
-        doc = Nokogiri::HTML.fragment(sanitize(html))
+        doc = create_nokogiri_fragment(sanitize(html))
         doc = normalize_lists(doc) if find_li(doc).any?
         doc
       end
 
       private
 
+      def create_nokogiri_fragment(html)
+        Nokogiri::HTML.fragment(html)
+      end
+
       def sanitize(html)
-        html = html.dup
-        html.gsub!('div>', 'p>')
-        html.gsub!('section>', 'p>')
-        html
+        doc = create_nokogiri_fragment(html)
+        doc.css('section').each { |elem| elem.name = 'p' }
+        doc.css('div').each { |elem| elem.name = 'p' }
+        doc.to_html
       end
 
       def normalize_lists(nokogiri_fragment)
