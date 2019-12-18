@@ -6,7 +6,7 @@ module ContentfulConverter
   class NokogiriBuilder
     class << self
       def build(html)
-        doc = create_nokogiri_fragment(sanitize(html))
+        doc = create_nokogiri_fragment(transform(html))
         normalize_lists(doc)
         normalize_embeds(doc)
         doc
@@ -14,9 +14,12 @@ module ContentfulConverter
 
       private
 
-      def sanitize(html)
+      # By transforming the elements at this point,
+      # nokogiri creates a tree that is accepted by contentful.
+      def transform(html)
         doc = create_nokogiri_fragment(html)
-        doc.css('section', 'div').each { |elem| elem.name = 'p' }
+        find_nodes(doc, ['section', 'div']).each { |elem| elem.name = 'p' }
+        find_nodes(doc, 'img').each { |elem| elem.name = 'embed' }
         doc.to_html
       end
 
@@ -25,13 +28,17 @@ module ContentfulConverter
       end
 
       def normalize_lists(nokogiri_fragment)
-        nokogiri_fragment.css('li').each { |li| wrap_parents_in_ul(li) }
+        find_nodes(nokogiri_fragment, 'li').each { |li| wrap_parents_in_ul(li) }
       end
 
       def normalize_embeds(nokogiri_fragment)
-        nokogiri_fragment.css('p embed').each do |embed_node|
+        find_nodes(nokogiri_fragment, 'p embed').each do |embed_node|
           embed_node.parent.add_next_sibling(embed_node)
         end
+      end
+
+      def find_nodes(doc, element)
+        doc.css(*element)
       end
 
       def wrap_parents_in_ul(node)

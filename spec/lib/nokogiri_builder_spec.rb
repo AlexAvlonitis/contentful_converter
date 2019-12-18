@@ -12,7 +12,7 @@ describe ContentfulConverter::NokogiriBuilder do
       context 'when the parent is not a ul' do
         it 'returns the the list with a ul wrapper' do
           result = described_class.build(html)
-          expect(result.at('ul').to_html).to eq(expected_html)
+          expect(result.to_html).to eq(expected_html)
         end
       end
 
@@ -22,7 +22,7 @@ describe ContentfulConverter::NokogiriBuilder do
 
         it 'returns the list as is' do
           result = described_class.build(html)
-          expect(result.at('ol').to_html).to eq(expected_html)
+          expect(result.to_html).to eq(expected_html)
         end
       end
 
@@ -32,7 +32,7 @@ describe ContentfulConverter::NokogiriBuilder do
 
         it 'wraps the children in a single p element' do
           result = described_class.build(html)
-          expect(result.at('ol').to_html).to eq(expected_html)
+          expect(result.to_html).to eq(expected_html)
         end
       end
 
@@ -42,7 +42,7 @@ describe ContentfulConverter::NokogiriBuilder do
 
         it 'wraps the children in a single p element keeping the rest as they are' do
           result = described_class.build(html)
-          expect(result.at('ol').to_html).to eq(expected_html)
+          expect(result.to_html).to eq(expected_html)
         end
       end
 
@@ -61,6 +61,16 @@ describe ContentfulConverter::NokogiriBuilder do
         let(:expected_html) { '<p>test</p><embed></embed>' }
 
         it 'moves the embed out of the paragraph' do
+          result = described_class.build(html)
+          expect(result.to_html).to eq(expected_html)
+        end
+      end
+
+      context 'when the html has an <img> element' do
+        let(:html) { '<section>test<img src="test.jpg" /></section>' }
+        let(:expected_html) { '<p>test</p><embed src="test.jpg"></embed>' }
+
+        it 'converts it to embed and moves it out of the paragraph' do
           result = described_class.build(html)
           expect(result.to_html).to eq(expected_html)
         end
