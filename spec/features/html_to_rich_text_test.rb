@@ -571,6 +571,46 @@ describe ContentfulConverter::Converter do
           expect(described_class.convert(html)).to eq expected_hash
         end
       end
+
+      context 'when either <ul> or <ol> has any child other than <li>' do
+        let(:html) { '<ol><li><p>test</p></li><p>remove</p></ol>' }
+        let(:expected_hash) do
+          {
+            nodeType: 'document',
+            data: {},
+            content: [
+              {
+                data: {},
+                nodeType: "ordered-list",
+                content: [
+                  {
+                    data: {},
+                    nodeType: "list-item",
+                    content: [
+                      {
+                        data: {},
+                        nodeType: "paragraph",
+                        content: [
+                          {
+                            data: {},
+                            marks: [],
+                            nodeType: "text",
+                            value: "test"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        end
+
+        it 'keeps only the list items and removes the rest' do
+          expect(described_class.convert(html)).to eq expected_hash
+        end
+      end
     end
 
     context 'On failure' do

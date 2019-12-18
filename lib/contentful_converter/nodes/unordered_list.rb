@@ -9,6 +9,12 @@ module ContentfulConverter
         false
       end
 
+      def add_content(node)
+        return unless node.class == Nodes::ListItem
+
+        super
+      end
+
       private
 
       def type

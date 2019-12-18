@@ -7,15 +7,12 @@ module ContentfulConverter
     class << self
       def build(html)
         doc = create_nokogiri_fragment(sanitize(html))
-        doc = normalize_lists(doc) if find_li(doc).any?
+        normalize_lists(doc)
+        normalize_embeds(doc)
         doc
       end
 
       private
-
-      def create_nokogiri_fragment(html)
-        Nokogiri::HTML.fragment(html)
-      end
 
       def sanitize(html)
         doc = create_nokogiri_fragment(html)
@@ -23,23 +20,18 @@ module ContentfulConverter
         doc.to_html
       end
 
+      def create_nokogiri_fragment(html)
+        Nokogiri::HTML.fragment(html)
+      end
+
       def normalize_lists(nokogiri_fragment)
-        find_li(nokogiri_fragment).each { |li_node| wrap_parents_in_ul(li_node) }
-        find_list_groups(nokogiri_fragment).each { |elem| clear_children(elem) }
-
-        nokogiri_fragment
+        nokogiri_fragment.css('li').each { |li| wrap_parents_in_ul(li) }
       end
 
-      def find_li(nokogiri_fragment)
-        nokogiri_fragment.css('li')
-      end
-
-      def find_list_groups(nokogiri_fragment)
-        nokogiri_fragment.css('ol', 'ul')
-      end
-
-      def clear_children(elem)
-        elem.children.each { |child| child.remove unless child.name == 'li' }
+      def normalize_embeds(nokogiri_fragment)
+        nokogiri_fragment.css('p embed').each do |embed_node|
+          embed_node.parent.add_next_sibling(embed_node)
+        end
       end
 
       def wrap_parents_in_ul(node)

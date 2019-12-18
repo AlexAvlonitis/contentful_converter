@@ -46,21 +46,21 @@ describe ContentfulConverter::NokogiriBuilder do
         end
       end
 
-      context 'when a <ul>|<ol> has children other than <li>' do
-        let(:html) { '<ol><li><p>test</p></li><p>remove</p></ol><ul><li><p>test</p></li><p>remove</p></ul>' }
-        let(:expected_html) { "<ol><li><p>test</p></li></ol><ul><li><p>test</p></li></ul>" }
-
-        it 'keeps only the list items and removes the rest' do
-          result = described_class.build(html)
-          expect(result.to_html).to eq(expected_html)
-        end
-      end
-
       context 'when the html has a section element' do
         let(:html) { '<section class="test"><p>test</p></section>' }
         let(:expected_html) { '<p class="test"></p><p>test</p>' }
 
         it 'converts the section into <p> and removes the wrapping' do
+          result = described_class.build(html)
+          expect(result.to_html).to eq(expected_html)
+        end
+      end
+
+      context 'when the html has a nested embed' do
+        let(:html) { '<section>test<embed /></section>' }
+        let(:expected_html) { '<p>test</p><embed></embed>' }
+
+        it 'moves the embed out of the paragraph' do
           result = described_class.build(html)
           expect(result.to_html).to eq(expected_html)
         end
