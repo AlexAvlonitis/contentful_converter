@@ -9,15 +9,15 @@ module ContentfulConverter
       private
 
       def type
-        return 'asset-hyperlink' if !(uri_scheme?) && uri_extension?
+        return 'asset-hyperlink' if !uri_scheme? && uri_extension?
         return 'entry-hyperlink' unless uri_scheme?
 
         'hyperlink'
       end
 
       def options
-        return hyperlink_entry_option("Asset") if !(uri_scheme?) && uri_extension?
-        return hyperlink_entry_option("Entry") unless uri_scheme?
+        return hyperlink_entry_option('Asset') if !uri_scheme? && uri_extension?
+        return hyperlink_entry_option('Entry') unless uri_scheme?
 
         hyperlink_option
       end
@@ -32,7 +32,7 @@ module ContentfulConverter
             target: {
               sys: {
                 id: parsed_link.to_s.split('.').first,
-                type: "Link",
+                type: 'Link',
                 linkType: type
               }
             }

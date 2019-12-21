@@ -13,7 +13,7 @@ module ContentfulConverter
       end
 
       def add_content(node)
-        @content << node
+        @content << (node.needs_p_wrapping? ? wrap_in_p(node) : node)
       end
 
       def to_h(params = options)
@@ -25,9 +25,9 @@ module ContentfulConverter
 
       def needs_p_wrapping?
         if parent.nil? ||
-            parent&.class == Nodes::Header ||
-            parent&.class == Nodes::Paragraph ||
-            parent&.class == Nodes::Hyperlink
+           parent&.class == Nodes::Header ||
+           parent&.class == Nodes::Paragraph ||
+           parent&.class == Nodes::Hyperlink
 
           return false
         end
@@ -36,6 +36,14 @@ module ContentfulConverter
       end
 
       private
+
+      attr_writer :content
+
+      def wrap_in_p(node)
+        p_node = Nodes::Paragraph.new(nil, node.parent)
+        p_node.content << node
+        p_node
+      end
 
       def value
         nokogiri_node.content

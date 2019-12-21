@@ -1,53 +1,65 @@
 # frozen_string_literal: true
 
 require 'contentful_converter/node_builder'
+require 'contentful_converter/stack'
 
 module ContentfulConverter
   class TreeCloner
-    class << self
-      def nokogiri_to_rich_text(nokogiri_fragment)
-        if nokogiri_fragment.children.empty?
-          return NodeBuilder.build(nokogiri_fragment).to_h
-        end
-
-        traverse_and_clone(nokogiri_fragment).to_h
+    def self.nokogiri_to_rich_text(nokogiri_fragment)
+      if nokogiri_fragment.children.empty?
+        return NodeBuilder.build(nokogiri_fragment).to_h
       end
 
-      private
+      new(nokogiri_fragment, Stack.new, Stack.new).traverse_and_clone
+    end
 
-      def traverse_and_clone(nokogiri_fragment)
-        rich_root_node = NodeBuilder.build(nokogiri_fragment)
+    def initialize(nokogiri_fragment, noko_stack, rich_stack)
+      @nokogiri_fragment = nokogiri_fragment
+      @noko_stack = noko_stack
+      @rich_stack = rich_stack
+    end
 
-        noko_stack = [nokogiri_fragment]
-        rich_stack = [rich_root_node]
+    def traverse_and_clone
+      initialize_stacks
 
-        while noko_stack.any?
-          noko_node = noko_stack.pop
-          rich_node = rich_stack.pop
+      while noko_stack.any?
+        noko_node = noko_stack.pop
+        rich_node = rich_stack.pop
 
-          next unless noko_node.children.any?
+        next unless noko_node.children.any?
 
-          noko_node.children.each do |child_node|
-            rich_child_node = NodeBuilder.build(child_node, rich_node)
-
-            noko_stack << child_node
-            rich_stack << rich_child_node
-            rich_node.add_content(wrap_in_paragraph(rich_child_node))
-          end
-        end
-
-        rich_root_node
+        children_traversal(noko_node, rich_node)
       end
 
-      def wrap_in_paragraph(node)
-        node.needs_p_wrapping? ? p_wrapper(node) : node
-      end
+      rich_root_node.to_h
+    end
 
-      def p_wrapper(node)
-        p_node = Nodes::Paragraph.new(nil, node.parent)
-        p_node.add_content(node)
-        p_node
+    private
+
+    attr_reader :noko_stack, :rich_stack, :nokogiri_fragment
+
+    def initialize_stacks
+      noko_stack.add(nokogiri_fragment)
+      rich_stack.add(rich_root_node)
+    end
+
+    def rich_root_node
+      @rich_root_node ||= NodeBuilder.build(nokogiri_fragment)
+    end
+
+    def children_traversal(noko_node, rich_node)
+      noko_node.children.each do |child_node|
+        rich_child_node = NodeBuilder.build(child_node, rich_node)
+
+        add_to_stacks(child_node, rich_child_node)
+
+        rich_node.add_content(rich_child_node)
       end
+    end
+
+    def add_to_stacks(noko_node, rich_node)
+      noko_stack.add(noko_node)
+      rich_stack.add(rich_node)
     end
   end
 end

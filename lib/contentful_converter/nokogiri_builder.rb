@@ -18,7 +18,7 @@ module ContentfulConverter
       # nokogiri creates a tree that is accepted by contentful.
       def transform(html)
         doc = create_nokogiri_fragment(html)
-        find_nodes(doc, ['section', 'div']).each { |elem| elem.name = 'p' }
+        find_nodes(doc, %w[section div]).each { |elem| elem.name = 'p' }
         find_nodes(doc, 'img').each { |elem| elem.name = 'embed' }
         doc.to_html
       end

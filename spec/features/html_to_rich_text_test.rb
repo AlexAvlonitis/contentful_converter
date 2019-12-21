@@ -151,17 +151,17 @@ describe ContentfulConverter::Converter do
               data: {},
               content: [
                 {
-                  nodeType: "paragraph",
+                  nodeType: 'paragraph',
                   data: {},
                   content: [
                     {
-                      nodeType: "entry-hyperlink",
+                      nodeType: 'entry-hyperlink',
                       data: {
                         target: {
                           sys: {
-                            id: "12398sadkcw",
-                            type: "Link",
-                            linkType: "Entry"
+                            id: '12398sadkcw',
+                            type: 'Link',
+                            linkType: 'Entry'
                           }
                         }
                       },
@@ -169,8 +169,8 @@ describe ContentfulConverter::Converter do
                         {
                           data: {},
                           marks: [],
-                          value: "hyperlink entry",
-                          nodeType: "text"
+                          value: 'hyperlink entry',
+                          nodeType: 'text'
                         }
                       ]
                     }
@@ -195,17 +195,17 @@ describe ContentfulConverter::Converter do
               data: {},
               content: [
                 {
-                  nodeType: "paragraph",
+                  nodeType: 'paragraph',
                   data: {},
                   content: [
                     {
-                      nodeType: "asset-hyperlink",
+                      nodeType: 'asset-hyperlink',
                       data: {
                         target: {
                           sys: {
-                            id: "12398sadkcw",
-                            type: "Link",
-                            linkType: "Asset"
+                            id: '12398sadkcw',
+                            type: 'Link',
+                            linkType: 'Asset'
                           }
                         }
                       },
@@ -213,8 +213,8 @@ describe ContentfulConverter::Converter do
                         {
                           data: {},
                           marks: [],
-                          value: "asset entry",
-                          nodeType: "text"
+                          value: 'asset entry',
+                          nodeType: 'text'
                         }
                       ]
                     }
@@ -239,17 +239,17 @@ describe ContentfulConverter::Converter do
               data: {},
               content: [
                 {
-                  nodeType: "paragraph",
+                  nodeType: 'paragraph',
                   data: {},
                   content: [
                     {
-                      nodeType: "entry-hyperlink",
+                      nodeType: 'entry-hyperlink',
                       data: {
                         target: {
                           sys: {
                             id: nil,
-                            type: "Link",
-                            linkType: "Entry"
+                            type: 'Link',
+                            linkType: 'Entry'
                           }
                         }
                       },
@@ -257,8 +257,8 @@ describe ContentfulConverter::Converter do
                         {
                           data: {},
                           marks: [],
-                          value: "click",
-                          nodeType: "text"
+                          value: 'click',
+                          nodeType: 'text'
                         }
                       ]
                     }
@@ -278,21 +278,21 @@ describe ContentfulConverter::Converter do
             let(:html) { '<embed src="2vtrc4TqIHNjolX299pik7" type="entry"/>' }
             let(:expected_hash) do
               {
-                nodeType: "document",
+                nodeType: 'document',
                 data: {},
                 content: [
                   {
                     data: {
                       target: {
                         sys: {
-                          id: "2vtrc4TqIHNjolX299pik7",
-                          type: "Link",
-                          linkType: "Entry"
+                          id: '2vtrc4TqIHNjolX299pik7',
+                          type: 'Link',
+                          linkType: 'Entry'
                         }
                       }
                     },
                     content: [],
-                    nodeType: "embedded-entry-block"
+                    nodeType: 'embedded-entry-block'
                   }
                 ]
               }
@@ -307,21 +307,21 @@ describe ContentfulConverter::Converter do
             let(:html) { '<embed src="2vtrc4TqIHNjolX299pik7" type="asset"/>' }
             let(:expected_hash) do
               {
-                nodeType: "document",
+                nodeType: 'document',
                 data: {},
                 content: [
                   {
                     data: {
                       target: {
                         sys: {
-                          id: "2vtrc4TqIHNjolX299pik7",
-                          type: "Link",
-                          linkType: "Asset"
+                          id: '2vtrc4TqIHNjolX299pik7',
+                          type: 'Link',
+                          linkType: 'Asset'
                         }
                       }
                     },
                     content: [],
-                    nodeType: "embedded-asset-block"
+                    nodeType: 'embedded-asset-block'
                   }
                 ]
               }
@@ -345,21 +345,21 @@ describe ContentfulConverter::Converter do
           let(:html) { '<img src="2vtrc4TqIHNjolX299pik7" />' }
           let(:expected_hash) do
             {
-              nodeType: "document",
+              nodeType: 'document',
               data: {},
               content: [
                 {
                   data: {
                     target: {
                       sys: {
-                        id: "2vtrc4TqIHNjolX299pik7",
-                        type: "Link",
-                        linkType: "Asset"
+                        id: '2vtrc4TqIHNjolX299pik7',
+                        type: 'Link',
+                        linkType: 'Asset'
                       }
                     }
                   },
                   content: [],
-                  nodeType: "embedded-asset-block"
+                  nodeType: 'embedded-asset-block'
                 }
               ]
             }
@@ -458,10 +458,10 @@ describe ContentfulConverter::Converter do
       context 'When we have a list of elements that need P wrapping' do
         context 'with marks' do
           [
-            ['b', 'strong'],
-            ['u', 'underline'],
-            ['i', 'italic'],
-            ['code', 'code']
+            %w[b strong],
+            %w[u underline],
+            %w[i italic],
+            %w[code code]
           ].each do |elem, text|
             let(:html) do
               "<html><body><#{elem}>underline text</#{elem}></body></html>"
@@ -498,7 +498,7 @@ describe ContentfulConverter::Converter do
 
       context 'when there is a blockquote element' do
         let(:html) do
-          "<html><body><blockquote>blockquote text</blockquote></body></html>"
+          '<html><body><blockquote>blockquote text</blockquote></body></html>'
         end
         let(:expected_hash) do
           {
@@ -534,7 +534,7 @@ describe ContentfulConverter::Converter do
 
       context 'when there is an hr element' do
         let(:html) do
-          "<html><body><hr></body></html>"
+          '<html><body><hr></body></html>'
         end
         let(:expected_hash) do
           {
@@ -557,7 +557,7 @@ describe ContentfulConverter::Converter do
 
       context 'when a paragraph element is blank' do
         let(:html) do
-          "<html><body><p>    </p></body></html>"
+          '<html><body><p>    </p></body></html>'
         end
         let(:expected_hash) do
           {
@@ -581,21 +581,21 @@ describe ContentfulConverter::Converter do
             content: [
               {
                 data: {},
-                nodeType: "ordered-list",
+                nodeType: 'ordered-list',
                 content: [
                   {
                     data: {},
-                    nodeType: "list-item",
+                    nodeType: 'list-item',
                     content: [
                       {
                         data: {},
-                        nodeType: "paragraph",
+                        nodeType: 'paragraph',
                         content: [
                           {
                             data: {},
                             marks: [],
-                            nodeType: "text",
-                            value: "test"
+                            nodeType: 'text',
+                            value: 'test'
                           }
                         ]
                       }

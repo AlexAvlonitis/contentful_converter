@@ -30,7 +30,7 @@ describe ContentfulConverter::NodeBuilder do
 
       context 'when we pass in text nokogiri node' do
         it 'instantiates a Text rich_text node' do
-          ['span', 'text'].each do |v|
+          %w[span text].each do |v|
             allow(nokogiri_node).to receive(:name) { v }
 
             expect(described_class.build(nokogiri_node))
@@ -41,7 +41,7 @@ describe ContentfulConverter::NodeBuilder do
 
       context 'when we pass in embed nokogiri node' do
         it 'instantiates an Embed rich_text node' do
-          ['img', 'embed'].each do |v|
+          %w[img embed].each do |v|
             allow(nokogiri_node).to receive(:name) { v }
             allow(nokogiri_node).to receive(:[]) { 'entry' }
 
