@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'nokogiri'
+require 'contentful_converter/configuration'
 
 module ContentfulConverter
   class NokogiriBuilder
@@ -18,6 +19,7 @@ module ContentfulConverter
       # nokogiri creates a tree that is accepted by contentful.
       def transform(html)
         doc = create_nokogiri_fragment(html)
+        remove_forbidden_elements(doc)
         find_nodes(doc, %w[section div]).each { |elem| elem.name = 'p' }
         find_nodes(doc, 'img').each { |elem| elem.name = 'embed' }
         doc.to_html
@@ -25,6 +27,13 @@ module ContentfulConverter
 
       def create_nokogiri_fragment(html)
         Nokogiri::HTML.fragment(html)
+      end
+
+      def remove_forbidden_elements(doc)
+        forbidden_nodes = ContentfulConverter.configure.configuration.forbidden_nodes
+        return if forbidden_nodes.empty?
+
+        find_nodes(doc, forbidden_nodes).each(&:remove)
       end
 
       def normalize_lists(nokogiri_fragment)

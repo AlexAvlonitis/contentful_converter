@@ -75,6 +75,38 @@ describe ContentfulConverter::NokogiriBuilder do
           expect(result.to_html).to eq(expected_html)
         end
       end
+
+      context 'when the html has a <table> element' do
+        let(:html) { '<p>test<table><th>col1</th></table></p>' }
+        let(:expected_html) { '<p>test</p>' }
+
+        it 'removes the tables by default' do
+          ContentfulConverter.configure.configuration.forbidden_nodes = 'table', 'script'
+          result = described_class.build(html)
+          expect(result.to_html).to eq(expected_html)
+        end
+
+        context 'when we remove the table from the configuration' do
+          let(:expected_html) { '<p>test</p><table><th>col1</th></table>' }
+
+          it 'keeps the table' do
+            ContentfulConverter.configure.configuration.forbidden_nodes = []
+            result = described_class.build(html)
+            expect(result.to_html).to eq(expected_html)
+          end
+        end
+      end
+
+      context 'when the html has a <script> element' do
+        let(:html) { '<p>test<script>alert(1)</script></p>' }
+        let(:expected_html) { '<p>test</p>' }
+
+        it 'removes the scripts by default' do
+          ContentfulConverter.configure.configuration.forbidden_nodes = 'script'
+          result = described_class.build(html)
+          expect(result.to_html).to eq(expected_html)
+        end
+      end
     end
   end
 end

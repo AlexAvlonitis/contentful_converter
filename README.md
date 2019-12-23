@@ -44,6 +44,16 @@ ContentfulConverter.convert('<h3>hello world</h3>')
 
 ### Additional info
 
+**Exclude Nodes**
+
+Add nodes to be removed from the conversion
+
+```ruby
+ContentfulConverter.configure do |config|
+  config.forbidden_nodes = 'table', 'script'
+end
+```
+
 **`<a>`**
 
 * HTML hyperlinks with full URL e.g: (`<a href="https://google.com"></a>`), will be converted into URL hyperlinks
