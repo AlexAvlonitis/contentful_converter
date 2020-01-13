@@ -108,5 +108,15 @@ describe ContentfulConverter::NokogiriBuilder do
         end
       end
     end
+
+    context 'when the html has a <a> element without source' do
+      let(:html) { '<p>test<a class="test">link</a></p>' }
+      let(:expected_html) { '<p>test</p>' }
+
+      it 'removes it' do
+        result = described_class.build(html)
+        expect(result.to_html).to eq(expected_html)
+      end
+    end
   end
 end

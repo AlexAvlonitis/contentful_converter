@@ -31,6 +31,7 @@ module ContentfulConverter
 
       def remove_forbidden_elements(doc)
         forbidden_nodes = ContentfulConverter.configure.configuration.forbidden_nodes
+        remove_empty_links(doc)
         return if forbidden_nodes.empty?
 
         find_nodes(doc, forbidden_nodes).each(&:remove)
@@ -44,6 +45,10 @@ module ContentfulConverter
         find_nodes(nokogiri_fragment, 'p embed').each do |embed_node|
           embed_node.parent.add_next_sibling(embed_node)
         end
+      end
+
+      def remove_empty_links(doc)
+        find_nodes(doc, 'a').each { |n| n.remove unless n['href'] }
       end
 
       def find_nodes(doc, element)
