@@ -50,7 +50,7 @@ Add nodes to be removed from the conversion
 
 ```ruby
 ContentfulConverter.configure do |config|
-  config.forbidden_nodes = 'table', 'script'
+  config.forbidden_nodes = ['table', 'script', 'iframe']
 end
 ```
 
