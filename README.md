@@ -110,7 +110,7 @@ end
   }
   ```
 
-* HTML hyperlinks without a scheme but with an extension e.g: (`<a href="/path/to_file.docx">file</a>`), will be converted into ASSET hyperlinks, with the href value as an ID, excluding the extension.
+* HTML hyperlinks without a scheme but with an extension e.g: (`<a href="file.docx">file</a>`), will be converted into ASSET hyperlinks, with the href value as an ID.
   ```ruby
   {
     nodeType: "paragraph",
@@ -121,7 +121,7 @@ end
         data: {
           target: {
             sys: {
-              id: "/path/to_file",
+              id: "file.docx",
               type: "Link",
               linkType: "Entry"
             }
