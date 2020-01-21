@@ -203,7 +203,7 @@ describe ContentfulConverter::Converter do
                       data: {
                         target: {
                           sys: {
-                            id: '12398sadkcw',
+                            id: '12398sadkcw.docx',
                             type: 'Link',
                             linkType: 'Asset'
                           }
@@ -247,7 +247,7 @@ describe ContentfulConverter::Converter do
                       data: {
                         target: {
                           sys: {
-                            id: nil,
+                            id: "",
                             type: 'Link',
                             linkType: 'Entry'
                           }

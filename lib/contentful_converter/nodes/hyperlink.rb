@@ -31,7 +31,7 @@ module ContentfulConverter
           data: {
             target: {
               sys: {
-                id: parsed_link.to_s.split('.').first,
+                id: parsed_link.to_s,
                 type: 'Link',
                 linkType: type
               }
