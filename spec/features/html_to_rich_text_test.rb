@@ -436,7 +436,7 @@ describe ContentfulConverter::Converter do
                         content: [
                           {
                             marks: [],
-                            value: 'list text',
+                            value: 'list text ',
                             nodeType: 'text',
                             data: {}
                           }
