@@ -247,7 +247,7 @@ describe ContentfulConverter::Converter do
                       data: {
                         target: {
                           sys: {
-                            id: "",
+                            id: '',
                             type: 'Link',
                             linkType: 'Entry'
                           }
@@ -342,24 +342,23 @@ describe ContentfulConverter::Converter do
         end
 
         context 'when there is an image' do
-          let(:html) { '<img src="2vtrc4TqIHNjolX299pik7" />' }
+          let(:html) { '<p>See the image: <img src="2vtrc4TqIHNjolX299pik7" alt="best accounting apps "></p>' }
           let(:expected_hash) do
             {
               nodeType: 'document',
               data: {},
               content: [
                 {
-                  data: {
-                    target: {
-                      sys: {
-                        id: '2vtrc4TqIHNjolX299pik7',
-                        type: 'Link',
-                        linkType: 'Asset'
-                      }
+                  nodeType: 'paragraph',
+                  data: {},
+                  content: [
+                    {
+                      data: {},
+                      marks: [],
+                      nodeType: 'text',
+                      value: 'See the image: <img src="2vtrc4TqIHNjolX299pik7" alt="best accounting apps ">'
                     }
-                  },
-                  content: [],
-                  nodeType: 'embedded-asset-block'
+                  ]
                 }
               ]
             }

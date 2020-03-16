@@ -45,7 +45,7 @@ module ContentfulConverter
       end
 
       def normalize_imgs(html_node)
-        find_nodes(html_node, 'img').each { |elem| elem.name = 'embed' }
+        find_nodes(html_node, 'img').each { |elem| elem.parent.content = elem.parent.text + elem.to_html }
       end
 
       def normalize_lists(nokogiri_fragment)
