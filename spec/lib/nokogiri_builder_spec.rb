@@ -28,7 +28,7 @@ describe ContentfulConverter::NokogiriBuilder do
 
       context 'when the list has multiple p children' do
         let(:html) { '<ol><li><p>testing</p><p>test2</p></li></ol>' }
-        let(:expected_html) { "<ol><li><p>testing test2 </p></li></ol>" }
+        let(:expected_html) { '<ol><li><p>testing test2 </p></li></ol>' }
 
         it 'wraps the children in a single p element and adds spaces' do
           result = described_class.build(html)
@@ -38,7 +38,7 @@ describe ContentfulConverter::NokogiriBuilder do
 
       context 'when the list has multiple mixed children' do
         let(:html) { '<ol><li><p>test</p><u>test2</u><i>test2</i></li></ol>' }
-        let(:expected_html) { "<ol><li><p>test <u>test2 </u><i>test2 </i></p></li></ol>" }
+        let(:expected_html) { '<ol><li><p>test <u>test2 </u><i>test2 </i></p></li></ol>' }
 
         it 'wraps the children in a single p element and adds spaces' do
           result = described_class.build(html)
@@ -78,7 +78,7 @@ describe ContentfulConverter::NokogiriBuilder do
 
       context 'when the html has an <img> element' do
         let(:html) { '<section>test<img src="test.jpg" /></section>' }
-        let(:expected_html) { 'test<embed src="test.jpg"></embed>' }
+        let(:expected_html) { 'test&lt;img src="test.jpg"&gt;' }
 
         it 'converts it to embed and moves it out of the paragraph' do
           result = described_class.build(html)
