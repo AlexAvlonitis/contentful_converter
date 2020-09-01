@@ -142,42 +142,82 @@ describe ContentfulConverter::Converter do
         end
 
         context 'when the link does not have a protocol' do
-          let(:html) do
-            '<html><body><a href="12398sadkcw">hyperlink entry</a></body></html>'
-          end
-          let(:expected_hash) do
-            {
-              nodeType: 'document',
-              data: {},
-              content: [
-                {
-                  nodeType: 'paragraph',
-                  data: {},
-                  content: [
-                    {
-                      nodeType: 'entry-hyperlink',
-                      data: {
-                        target: {
-                          sys: {
-                            id: '12398sadkcw',
-                            type: 'Link',
-                            linkType: 'Entry'
+          context 'when the link does not contain a hash' do
+            let(:html) do
+              '<html><body><a href="12398sadkcw">hyperlink entry</a></body></html>'
+            end
+            let(:expected_hash) do
+              {
+                nodeType: 'document',
+                data: {},
+                content: [
+                  {
+                    nodeType: 'paragraph',
+                    data: {},
+                    content: [
+                      {
+                        nodeType: 'entry-hyperlink',
+                        data: {
+                          target: {
+                            sys: {
+                              id: '12398sadkcw',
+                              type: 'Link',
+                              linkType: 'Entry'
+                            }
                           }
-                        }
-                      },
-                      content: [
-                        {
-                          data: {},
-                          marks: [],
-                          value: 'hyperlink entry',
-                          nodeType: 'text'
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
+                        },
+                        content: [
+                          {
+                            data: {},
+                            marks: [],
+                            value: 'hyperlink entry',
+                            nodeType: 'text'
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            end
+
+            it 'creates a hyperlink entry with the href as a link id' do
+              expect(described_class.convert(html)).to eq expected_hash
+            end
+          end
+
+          context 'when the link contains a hash' do
+            let(:html) do
+              '<html><body><a href="12398sadkcw/#h-something">hyperlink entry</a></body></html>'
+            end
+            let(:expected_hash) do
+              {
+                nodeType: 'document',
+                data: {},
+                content: [
+                  {
+                    nodeType: 'paragraph',
+                    data: {},
+                    content: [
+                      {
+                        nodeType: 'hyperlink',
+                        data: {
+                          uri: '12398sadkcw/#h-something'
+                        },
+                        content: [
+                          {
+                            data: {},
+                            marks: [],
+                            value: 'hyperlink entry',
+                            nodeType: 'text'
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            end
           end
 
           it 'creates a hyperlink entry with the href as a link id' do
