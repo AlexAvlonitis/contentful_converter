@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.description = 'Converts HTML text to Rich Text Contentful specific JSON structure'
   s.authors     = ['Alex Avlonitis']
   s.files       = Dir.glob('{bin,lib}/**/*') + %w[README.md]
-  s.homepage    = 'https://github.com/citizensadvice/contentful_converter.git'
+  s.homepage    = 'https://github.com/AlexAvlonitis/contentful_converter.git'
   s.license     = 'MIT'
 
   s.add_dependency 'nokogiri', '~> 1.6'
