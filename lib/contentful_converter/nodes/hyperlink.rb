@@ -10,14 +10,14 @@ module ContentfulConverter
 
       def type
         return 'asset-hyperlink' if !uri_scheme? && uri_extension?
-        return 'entry-hyperlink' unless uri_scheme?
+        return 'entry-hyperlink' if !uri_scheme? && !parsed_link.to_s.include?("#")
 
         'hyperlink'
       end
 
       def options
         return hyperlink_entry_option('Asset') if !uri_scheme? && uri_extension?
-        return hyperlink_entry_option('Entry') unless uri_scheme?
+        return hyperlink_entry_option('Entry') if !uri_scheme? && !parsed_link.to_s.include?("#")
 
         hyperlink_option
       end
