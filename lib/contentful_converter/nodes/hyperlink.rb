@@ -23,7 +23,13 @@ module ContentfulConverter
       end
 
       def hyperlink_option
-        { data: { uri: parsed_link.to_s } }
+        link = parsed_link.host == 'citizensadvice.org.uk' ? link_path : parsed_link
+
+        { data: { uri: link.to_s } }
+      end
+
+      def link_path
+        parsed_link.path
       end
 
       def hyperlink_entry_option(type)

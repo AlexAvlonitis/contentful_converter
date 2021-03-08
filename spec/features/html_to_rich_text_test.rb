@@ -104,40 +104,80 @@ describe ContentfulConverter::Converter do
 
       context 'When we have a link' do
         context 'When the link has protocol e.g http(s)' do
-          let(:html) do
-            '<html><body><a href="https://google.com">click me</a></body></html>'
-          end
-          let(:expected_hash) do
-            {
-              nodeType: 'document',
-              data: {},
-              content: [
-                {
-                  nodeType: 'paragraph',
-                  data: {},
-                  content: [
-                    {
-                      nodeType: 'hyperlink',
-                      data: {
-                        uri: 'https://google.com'
-                      },
-                      content: [
-                        {
-                          marks: [],
-                          value: 'click me',
-                          nodeType: 'text',
-                          data: {}
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
+          context 'When the host is citizensadvice.org.uk' do
+            let(:html) do
+              '<html><body><a href="https://citizensadvice.org.uk/mypage">click me</a></body></html>'
+            end
+            let(:expected_hash) do
+              {
+                nodeType: 'document',
+                data: {},
+                content: [
+                  {
+                    nodeType: 'paragraph',
+                    data: {},
+                    content: [
+                      {
+                        nodeType: 'hyperlink',
+                        data: {
+                          uri: '/mypage'
+                        },
+                        content: [
+                          {
+                            marks: [],
+                            value: 'click me',
+                            nodeType: 'text',
+                            data: {}
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            end
+
+            it 'creates a normal hyperlink structure' do
+              expect(described_class.convert(html)).to eq expected_hash
+            end
           end
 
-          it 'creates a normal hyperlink structure' do
-            expect(described_class.convert(html)).to eq expected_hash
+          context 'When the host is not citizensadvice.org.uk' do
+            let(:html) do
+              '<html><body><a href="https://google.com">click me</a></body></html>'
+            end
+            let(:expected_hash) do
+              {
+                nodeType: 'document',
+                data: {},
+                content: [
+                  {
+                    nodeType: 'paragraph',
+                    data: {},
+                    content: [
+                      {
+                        nodeType: 'hyperlink',
+                        data: {
+                          uri: 'https://google.com'
+                        },
+                        content: [
+                          {
+                            marks: [],
+                            value: 'click me',
+                            nodeType: 'text',
+                            data: {}
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            end
+
+            it 'creates a normal hyperlink structure' do
+              expect(described_class.convert(html)).to eq expected_hash
+            end
           end
         end
 
