@@ -1,4 +1,4 @@
-# HTML to Rich Text Contentful converter
+# HTML to rich text converter contentful
 
 [![Build Status](https://travis-ci.org/AlexAvlonitis/contentful_converter.svg?branch=master)](https://travis-ci.org/AlexAvlonitis/contentful_converter)
 
