@@ -12,7 +12,7 @@ gem 'contentful_converter'
 # Ruby
 gem install 'contentful_converter'
 
-require 'contentful_converter
+require 'contentful_converter'
 
 ```
 
