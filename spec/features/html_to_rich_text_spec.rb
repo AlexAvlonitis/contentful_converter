@@ -595,6 +595,24 @@ describe ContentfulConverter::Converter do
         end
       end
 
+      context 'when there is a hyperlink' do
+        let(:html) do
+          '<html><body><a href="blog.html">awesome blog</a></body></html>'
+        end
+        it 'links to the resource' do
+          expect(described_class.convert(html).to_s).to include("blog.html")
+        end
+      end
+
+      context 'when there is a hyperlink in a bold tag' do
+        let(:html) do
+          '<html><body><b>visit my <a href="blog.html">awesome blog</a></b></body></html>'
+        end
+        it 'links to the resource' do
+          expect(described_class.convert(html).to_s).to include("blog.html")
+        end
+      end
+
       context 'when a paragraph element is blank' do
         let(:html) do
           '<html><body><p>    </p></body></html>'
