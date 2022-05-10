@@ -46,7 +46,7 @@ ContentfulConverter.convert('<h3>hello world</h3>')
 
 **Exclude Nodes**
 
-Add nodes to be removed from the conversion
+Add nodes to be excluded from the conversion
 
 ```ruby
 ContentfulConverter.configure do |config|
