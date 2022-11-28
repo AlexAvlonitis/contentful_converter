@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/AlexAvlonitis/contentful_converter.svg?branch=master)](https://travis-ci.org/AlexAvlonitis/contentful_converter)
 
+## **NOTE: NOT MAINTAINED**
+
 Converts plain html string to contentful specific rich text hash
 
 ### Install
